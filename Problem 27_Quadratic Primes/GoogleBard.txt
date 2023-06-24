@@ -1,0 +1,55 @@
+using System;
+using System.Collections.Generic;
+
+public class Program {
+
+    public static void Main() {
+        // Create a list of primes up to 1000.
+        List<int> primes = GetPrimes(1000);
+
+        // Find the maximum number of primes produced by a quadratic expression.
+        int maxPrimes = 0;
+        int aMax = 0;
+        int bMax = 0;
+        for (int a = -999; a <= 999; a++) {
+            for (int b = -999; b <= 999; b++) {
+                int numPrimes = 0;
+                for (int n = 0; n < 1000; n++) {
+                    if (IsPrime(n * n + a * n + b)) {
+                        numPrimes++;
+                    }
+                }
+                if (numPrimes > maxPrimes) {
+                    maxPrimes = numPrimes;
+                    aMax = a;
+                    bMax = b;
+                }
+            }
+        }
+
+        // Print the product of the coefficients.
+        Console.WriteLine(aMax * bMax);
+    }
+
+    private static List<int> GetPrimes(int max) {
+        List<int> primes = new List<int>();
+        for (int i = 2; i <= max; i++) {
+            if (IsPrime(i)) {
+                primes.Add(i);
+            }
+        }
+        return primes;
+    }
+
+    private static bool IsPrime(int n) {
+        if (n <= 1) {
+            return false;
+        }
+        for (int i = 2; i * i <= n; i++) {
+            if (n % i == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+}

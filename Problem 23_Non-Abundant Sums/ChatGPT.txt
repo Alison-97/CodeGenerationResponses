@@ -1,0 +1,83 @@
+using System;
+using System.Collections.Generic;
+
+public class Program
+{
+    public static void Main()
+    {
+        int limit = 28123;
+        List<int> abundantNumbers = FindAbundantNumbers(limit);
+        List<int> numbers = new List<int>();
+
+        for (int i = 1; i <= limit; i++)
+        {
+            numbers.Add(i);
+        }
+
+        List<int> abundantSums = FindAbundantSums(abundantNumbers);
+
+        foreach (int sum in abundantSums)
+        {
+            if (sum <= limit)
+            {
+                numbers.Remove(sum);
+            }
+        }
+
+        int sumOfNonAbundantSums = 0;
+
+        foreach (int number in numbers)
+        {
+            sumOfNonAbundantSums += number;
+        }
+
+        Console.WriteLine("Sum of all positive integers that cannot be written as the sum of two abundant numbers: " + sumOfNonAbundantSums);
+    }
+
+    public static List<int> FindAbundantNumbers(int limit)
+    {
+        List<int> abundantNumbers = new List<int>();
+
+        for (int i = 1; i <= limit; i++)
+        {
+            if (IsAbundantNumber(i))
+            {
+                abundantNumbers.Add(i);
+            }
+        }
+
+        return abundantNumbers;
+    }
+
+    public static bool IsAbundantNumber(int number)
+    {
+        int sumOfDivisors = 0;
+
+        for (int i = 1; i <= number / 2; i++)
+        {
+            if (number % i == 0)
+            {
+                sumOfDivisors += i;
+            }
+        }
+
+        return sumOfDivisors > number;
+    }
+
+    public static List<int> FindAbundantSums(List<int> abundantNumbers)
+    {
+        List<int> abundantSums = new List<int>();
+
+        for (int i = 0; i < abundantNumbers.Count; i++)
+        {
+            for (int j = i; j < abundantNumbers.Count; j++)
+            {
+                int sum = abundantNumbers[i] + abundantNumbers[j];
+                abundantSums.Add(sum);
+            }
+        }
+
+        return abundantSums;
+    }
+}
+ 

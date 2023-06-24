@@ -1,0 +1,46 @@
+using System;
+
+public class Program {
+
+    static List<int> abundantNumbers = new List<int>();
+
+    static void Main(string[] args) {
+        int sum = 0;
+        for (int i = 1; i < 28124; i++) {
+            if (IsAbundant(i)) {
+                abundantNumbers.Add(i);
+            }
+        }
+        for (int i = 1; i < 28124; i++) {
+            bool isSumOfAbundantNumbers = false;
+            for (int j = 0; j < abundantNumbers.Count; j++) {
+                for (int k = j + 1; k < abundantNumbers.Count; k++) {
+                    if (abundantNumbers[j] + abundantNumbers[k] == i) {
+                        isSumOfAbundantNumbers = true;
+                        break;
+                    }
+                }
+                if (isSumOfAbundantNumbers) {
+                    break;
+                }
+            }
+            if (!isSumOfAbundantNumbers) {
+                sum += i;
+            }
+        }
+        Console.WriteLine("The sum is: " + sum);
+    }
+
+    static bool IsAbundant(int number) {
+        int sum = 1;
+        for (int i = 2; i <= Math.Sqrt(number); i++) {
+            if (number % i == 0) {
+                sum += i;
+                if (i != number / i) {
+                    sum += number / i;
+                }
+            }
+        }
+        return sum > number;
+    }
+}

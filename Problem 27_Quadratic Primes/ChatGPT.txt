@@ -1,0 +1,47 @@
+using System;
+
+public class Program
+{
+    public static void Main()
+    {
+        int maxPrimes = 0;
+        int maxProduct = 0;
+
+        for (int a = -999; a < 1000; a++)
+        {
+            for (int b = -1000; b <= 1000; b++)
+            {
+                int n = 0;
+                int quadratic = n * n + a * n + b;
+
+                while (IsPrime(quadratic))
+                {
+                    n++;
+                    quadratic = n * n + a * n + b;
+                }
+
+                if (n > maxPrimes)
+                {
+                    maxPrimes = n;
+                    maxProduct = a * b;
+                }
+            }
+        }
+
+        Console.WriteLine("The product of the coefficients with the maximum number of primes is: " + maxProduct);
+    }
+
+    private static bool IsPrime(int number)
+    {
+        if (number < 2)
+            return false;
+
+        for (int i = 2; i <= Math.Sqrt(number); i++)
+        {
+            if (number % i == 0)
+                return false;
+        }
+
+        return true;
+    }
+}

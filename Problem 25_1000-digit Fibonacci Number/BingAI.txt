@@ -1,0 +1,13 @@
+BigInteger a = 1;
+BigInteger b = 1;
+int index = 2;
+
+while (b.ToString().Length < 1000)
+{
+    BigInteger temp = b;
+    b += a;
+    a = temp;
+    index++;
+}
+
+Console.WriteLine(index);

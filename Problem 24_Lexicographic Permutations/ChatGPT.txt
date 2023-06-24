@@ -1,0 +1,57 @@
+using System;
+using System.Linq;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        int[] digits = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+        int targetIndex = 1000000; // The index of the permutation we want to find
+
+        string permutation = FindLexicographicPermutation(digits, targetIndex);
+        Console.WriteLine(permutation);
+    }
+
+    static string FindLexicographicPermutation(int[] digits, int targetIndex)
+    {
+        int n = digits.Length;
+        int[] factorial = Enumerable.Range(0, n + 1).Select(i => Factorial(i)).ToArray();
+        bool[] used = new bool[n];
+        Array.Sort(digits);
+
+        string permutation = "";
+        targetIndex--; // Convert to 0-based index
+
+        for (int i = n - 1; i >= 0; i--)
+        {
+            int index = targetIndex / factorial[i];
+            targetIndex %= factorial[i];
+
+            for (int j = 0; j < n; j++)
+            {
+                if (!used[j])
+                {
+                    if (index == 0)
+                    {
+                        permutation += digits[j].ToString();
+                        used[j] = true;
+                        break;
+                    }
+                    index--;
+                }
+            }
+        }
+
+        return permutation;
+    }
+
+    static int Factorial(int n)
+    {
+        int result = 1;
+        for (int i = 2; i <= n; i++)
+        {
+            result *= i;
+        }
+        return result;
+    }
+}

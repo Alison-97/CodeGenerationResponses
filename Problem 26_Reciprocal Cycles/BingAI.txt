@@ -1,0 +1,36 @@
+using System;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int longestCycle = 0;
+            int longestCycleNumber = 0;
+
+            for (int i = 2; i < 1000; i++)
+            {
+                int[] remainders = new int[i];
+                int value = 1;
+                int position = 0;
+
+                while (remainders[value] == 0 && value != 0)
+                {
+                    remainders[value] = position;
+                    value *= 10;
+                    value %= i;
+                    position++;
+                }
+
+                if (position - remainders[value] > longestCycle)
+                {
+                    longestCycle = position - remainders[value];
+                    longestCycleNumber = i;
+                }
+            }
+
+            Console.WriteLine(longestCycleNumber);
+        }
+    }
+}
