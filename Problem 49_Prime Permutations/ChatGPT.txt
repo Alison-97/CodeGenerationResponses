@@ -1,0 +1,116 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public class Program
+{
+    public static void Main()
+    {
+        List<int> primes = GetPrimesInRange(1000, 9999);
+        List<int> permutations = new List<int>();
+
+        foreach (int prime in primes)
+        {
+            List<int> primePermutations = GetPermutations(prime);
+            permutations.AddRange(primePermutations.Where(p => primes.Contains(p)));
+        }
+
+        List<int[]> sequences = GetArithmeticSequences(permutations);
+
+        foreach (int[] sequence in sequences)
+        {
+            if (sequence[2] - sequence[1] == sequence[1] - sequence[0])
+            {
+                long twelveDigitNumber = long.Parse(sequence[0].ToString() + sequence[1].ToString() + sequence[2].ToString());
+                Console.WriteLine("12-digit number: " + twelveDigitNumber);
+                break;
+            }
+        }
+    }
+
+    public static List<int> GetPrimesInRange(int start, int end)
+    {
+        List<int> primes = new List<int>();
+
+        for (int i = start; i <= end; i++)
+        {
+            if (IsPrime(i))
+            {
+                primes.Add(i);
+            }
+        }
+
+        return primes;
+    }
+
+    public static bool IsPrime(int number)
+    {
+        if (number < 2)
+        {
+            return false;
+        }
+
+        for (int i = 2; i <= Math.Sqrt(number); i++)
+        {
+            if (number % i == 0)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public static List<int> GetPermutations(int number)
+    {
+        List<int> permutations = new List<int>();
+        string numberString = number.ToString();
+
+        GetPermutationsRecursive(numberString.ToCharArray(), 0, permutations);
+
+        return permutations;
+    }
+
+    public static void GetPermutationsRecursive(char[] numberArray, int start, List<int> permutations)
+    {
+        if (start == numberArray.Length - 1)
+        {
+            int permutation = int.Parse(new string(numberArray));
+            permutations.Add(permutation);
+        }
+        else
+        {
+            for (int i = start; i < numberArray.Length; i++)
+            {
+                Swap(ref numberArray[start], ref numberArray[i]);
+                GetPermutationsRecursive(numberArray, start + 1, permutations);
+                Swap(ref numberArray[start], ref numberArray[i]);
+            }
+        }
+    }
+
+    public static void Swap(ref char a, ref char b)
+    {
+        char temp = a;
+        a = b;
+        b = temp;
+    }
+
+    public static List<int[]> GetArithmeticSequences(List<int> numbers)
+    {
+        List<int[]> sequences = new List<int[]>();
+
+        for (int i = 0; i < numbers.Count - 2; i++)
+        {
+            for (int j = i + 1; j < numbers.Count - 1; j++)
+            {
+                for (int k = j + 1; k < numbers.Count; k++)
+                {
+                    sequences.Add(new int[] { numbers[i], numbers[j], numbers[k] });
+                }
+            }
+        }
+
+        return sequences;
+    }
+}

@@ -1,0 +1,45 @@
+using System;
+
+public class GoldbachConjecture
+{
+    public static bool IsPrime(int number)
+    {
+        if (number < 2)
+            return false;
+
+        for (int i = 2; i <= Math.Sqrt(number); i++)
+        {
+            if (number % i == 0)
+                return false;
+        }
+
+        return true;
+    }
+
+    public static bool IsGoldbachConjectureTrue(int number)
+    {
+        for (int i = 1; 2 * i * i < number; i++)
+        {
+            int remainder = number - 2 * i * i;
+            if (IsPrime(remainder))
+                return true;
+        }
+
+        return false;
+    }
+
+    public static int FindSmallestOddComposite()
+    {
+        for (int i = 9; ; i += 2)
+        {
+            if (!IsPrime(i) && !IsGoldbachConjectureTrue(i))
+                return i;
+        }
+    }
+
+    public static void Main(string[] args)
+    {
+        int smallestOddComposite = FindSmallestOddComposite();
+        Console.WriteLine("The smallest odd composite that cannot be written as the sum of a prime and twice a square is: " + smallestOddComposite);
+    }
+}

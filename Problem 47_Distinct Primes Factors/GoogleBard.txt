@@ -1,0 +1,92 @@
+using System;
+
+namespace FourDistinctPrimeFactors
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Initialize the first four consecutive integers to have four distinct prime factors.
+            int[] firstFourIntegers = new int[4];
+            firstFourIntegers[0] = -1;
+
+            // Iterate over all numbers from 2 to infinity.
+            for (int i = 2; i < int.MaxValue; i++)
+            {
+                // If the number has four distinct prime factors, update the first four consecutive integers.
+                if (HasFourDistinctPrimeFactors(i))
+                {
+                    for (int j = 0; j < 4; j++)
+                    {
+                        if (firstFourIntegers[j] == -1)
+                        {
+                            firstFourIntegers[j] = i;
+                            break;
+                        }
+                    }
+
+                    // If the first four consecutive integers are all set, break the loop.
+                    if (firstFourIntegers[3] != -1)
+                    {
+                        break;
+                    }
+                }
+            }
+
+            // Print the first of the first four consecutive integers.
+            Console.WriteLine("The first of the first four consecutive integers is {0}", firstFourIntegers[0]);
+        }
+
+        static bool HasFourDistinctPrimeFactors(int number)
+        {
+            // Check if the number has four distinct prime factors.
+            int[] primeFactors = GetPrimeFactors(number);
+            if (primeFactors.Length != 4)
+            {
+                return false;
+            }
+
+            // Check if the prime factors are distinct.
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = i + 1; j < 4; j++)
+                {
+                    if (primeFactors[i] == primeFactors[j])
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        static int[] GetPrimeFactors(int number)
+        {
+            // Initialize the list of prime factors.
+            List<int> primeFactors = new List<int>();
+
+            // Iterate over all prime numbers.
+            for (int i = 2; i <= Math.Sqrt(number); i++)
+            {
+                // If the number is divisible by the prime number, add it to the list of prime factors.
+                if (number % i == 0)
+                {
+                    primeFactors.Add(i);
+                    while (number % i == 0)
+                    {
+                        number /= i;
+                    }
+                }
+            }
+
+            // If the number is not a prime number, add it to the list of prime factors.
+            if (number > 1)
+            {
+                primeFactors.Add(number);
+            }
+
+            return primeFactors.ToArray();
+        }
+    }
+}

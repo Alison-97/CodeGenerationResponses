@@ -1,0 +1,49 @@
+using System;
+using System.Collections.Generic;
+
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        int count = 0;
+        int num = 1;
+
+        while (count < 4)
+        {
+            if (DistinctPrimeFactors(num) == 4)
+                count++;
+            else
+                count = 0;
+
+            num++;
+        }
+
+        int firstNumber = num - 4;
+        Console.WriteLine("The first number of the four consecutive integers with four distinct prime factors is: " + firstNumber);
+    }
+
+    public static int DistinctPrimeFactors(int num)
+    {
+        HashSet<int> factors = new HashSet<int>();
+
+        while (num % 2 == 0)
+        {
+            factors.Add(2);
+            num /= 2;
+        }
+
+        for (int i = 3; i <= Math.Sqrt(num); i += 2)
+        {
+            while (num % i == 0)
+            {
+                factors.Add(i);
+                num /= i;
+            }
+        }
+
+        if (num > 2)
+            factors.Add(num);
+
+        return factors.Count;
+    }
+}

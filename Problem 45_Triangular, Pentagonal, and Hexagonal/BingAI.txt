@@ -1,0 +1,42 @@
+using System;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            long n = 144;
+            long triangle = 0;
+            long pentagonal = 0;
+            long hexagonal = 0;
+
+            while (true)
+            {
+                triangle = n * (n + 1) / 2;
+                pentagonal = n * (3 * n - 1) / 2;
+                hexagonal = n * (2 * n - 1);
+
+                if (IsPentagonal(triangle) && IsHexagonal(triangle))
+                {
+                    Console.WriteLine(triangle);
+                    break;
+                }
+
+                n++;
+            }
+        }
+
+        static bool IsPentagonal(long x)
+        {
+            double n = (Math.Sqrt(24 * x + 1) + 1) / 6;
+            return n == ((int)n);
+        }
+
+        static bool IsHexagonal(long x)
+        {
+            double n = (Math.Sqrt(8 * x + 1) + 1) / 4;
+            return n == ((int)n);
+        }
+    }
+}

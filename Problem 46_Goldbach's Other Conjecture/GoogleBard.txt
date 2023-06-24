@@ -1,0 +1,71 @@
+using System;
+
+namespace GoldbachsOtherConjecture
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Create a list of primes.
+            List<int> primes = new List<int>();
+            for (int i = 2; i < 500000; i++)
+            {
+                if (IsPrime(i))
+                {
+                    primes.Add(i);
+                }
+            }
+
+            // Initialize the smallest odd composite that cannot be written as the sum of a prime and twice a square.
+            int smallestOddComposite = 0;
+
+            // Iterate over all odd numbers.
+            for (int i = 3; i < 500000; i += 2)
+            {
+                // If the number is composite, check if it can be written as the sum of a prime and twice a square.
+                if (!IsPrime(i))
+                {
+                    bool canBeWrittenAsSumOfPrimeAndTwiceASquare = false;
+                    for (int j = 0; j < primes.Count; j++)
+                    {
+                        int difference = i - primes[j];
+                        if (IsSquare(difference))
+                        {
+                            canBeWrittenAsSumOfPrimeAndTwiceASquare = true;
+                            break;
+                        }
+                    }
+
+                    // If the number cannot be written as the sum of a prime and twice a square, update the smallest odd composite.
+                    if (!canBeWrittenAsSumOfPrimeAndTwiceASquare)
+                    {
+                        smallestOddComposite = i;
+                        break;
+                    }
+                }
+            }
+
+            // Print the smallest odd composite that cannot be written as the sum of a prime and twice a square.
+            Console.WriteLine("The smallest odd composite that cannot be written as the sum of a prime and twice a square is {0}", smallestOddComposite);
+        }
+
+        static bool IsPrime(int number)
+        {
+            for (int i = 2; i <= Math.Sqrt(number); i++)
+            {
+                if (number % i == 0)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        static bool IsSquare(int number)
+        {
+            int squareRoot = Math.Sqrt(number);
+            return squareRoot * squareRoot == number;
+        }
+    }
+}

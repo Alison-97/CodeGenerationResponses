@@ -1,0 +1,74 @@
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    // A method that returns a dictionary of prime factors and their counts for a given number
+    static Dictionary<int, int> GetPrimeFactors(int n)
+    {
+        var factors = new Dictionary<int, int>();
+        int factor = 2;
+        while (n > 1)
+        {
+            // If factor divides n, add it to the dictionary and update n
+            if (n % factor == 0)
+            {
+                if (factors.ContainsKey(factor))
+                {
+                    factors[factor]++;
+                }
+                else
+                {
+                    factors[factor] = 1;
+                }
+                n /= factor;
+            }
+            // Otherwise, increment factor
+            else
+            {
+                factor++;
+            }
+        }
+        return factors;
+    }
+
+    // A method that returns the number of divisors for a given number
+    static int GetDivisorCount(int n)
+    {
+        var factors = GetPrimeFactors(n);
+        int count = 1;
+        // For each prime factor, multiply its count plus one
+        foreach (var pair in factors)
+        {
+            count *= (pair.Value + 1);
+        }
+        return count;
+    }
+
+    // A method that returns the first of four consecutive integers that have four distinct prime factors each
+    static int GetFirstOfFour()
+    {
+        int n = 2;
+        // Loop until four consecutive integers are found
+        while (true)
+        {
+            // Check if n has four distinct prime factors
+            if (GetDivisorCount(n) == 16)
+            {
+                // Check if n+1, n+2, and n+3 also have four distinct prime factors
+                if (GetDivisorCount(n + 1) == 16 && GetDivisorCount(n + 2) == 16 && GetDivisorCount(n + 3) == 16)
+                {
+                    // Return n as the answer
+                    return n;
+                }
+            }
+            // Increment n
+            n++;
+        }
+    }
+
+    static void Main(string[] args)
+    {
+        Console.WriteLine(GetFirstOfFour());
+    }
+}

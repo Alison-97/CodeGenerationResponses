@@ -1,0 +1,47 @@
+using System;
+
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        long triangleNum = 285; // Start with the next triangle number after 40755
+        long n = 166; // Start with the next number after 165 for pentagonal numbers
+        long m = 144; // Start with the next number after 143 for hexagonal numbers
+
+        while (true)
+        {
+            long triangle = GetTriangleNumber(triangleNum);
+            long pentagonal = GetPentagonalNumber(n);
+            long hexagonal = GetHexagonalNumber(m);
+
+            if (triangle == pentagonal && triangle == hexagonal)
+            {
+                Console.WriteLine("Next triangle number that is also pentagonal and hexagonal: " + triangle);
+                break;
+            }
+
+            // Increment the respective indexes
+            if (pentagonal <= triangle && pentagonal <= hexagonal)
+                n++;
+            else if (hexagonal <= triangle && hexagonal <= pentagonal)
+                m++;
+            else
+                triangleNum++;
+        }
+    }
+
+    public static long GetTriangleNumber(long n)
+    {
+        return n * (n + 1) / 2;
+    }
+
+    public static long GetPentagonalNumber(long n)
+    {
+        return n * (3 * n - 1) / 2;
+    }
+
+    public static long GetHexagonalNumber(long n)
+    {
+        return n * (2 * n - 1);
+    }
+}

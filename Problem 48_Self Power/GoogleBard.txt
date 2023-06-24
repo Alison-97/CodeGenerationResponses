@@ -1,0 +1,19 @@
+using System;
+
+public class Program {
+
+    public static void Main() {
+
+        // Calculate the sum of the series
+        long sum = 0;
+        for (long i = 1; i <= 1000; i++) {
+            sum += i * i;
+        }
+
+        // Get the last ten digits of the sum
+        int lastTenDigits = (int)(sum % (long)Math.Pow(10, 10));
+
+        // Print the last ten digits of the sum
+        Console.WriteLine("The last ten digits of the sum are: {0}", lastTenDigits);
+    }
+}

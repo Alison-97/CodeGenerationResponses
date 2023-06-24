@@ -1,0 +1,18 @@
+using System;
+using System.Numerics;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        BigInteger sum = 0;
+
+        for (int i = 1; i <= 1000; i++)
+        {
+            sum += BigInteger.Pow(i, i);
+        }
+
+        string result = sum.ToString();
+        Console.WriteLine(result.Substring(result.Length - 10));
+    }
+}

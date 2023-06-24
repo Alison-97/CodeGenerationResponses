@@ -1,0 +1,119 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+class Program
+{
+    // A method that checks if a number is prime
+    static bool IsPrime(int n)
+    {
+        // Check for edge cases
+        if (n < 2) return false;
+        if (n == 2) return true;
+        if (n % 2 == 0) return false;
+        // Check only odd numbers up to the square root of n
+        int limit = (int)Math.Sqrt(n);
+        for (int i = 3; i <= limit; i += 2)
+        {
+            // Skip multiples of 3 and 5
+            if (i % 3 == 0 || i % 5 == 0) continue;
+            // Check for divisibility
+            if (n % i == 0) return false;
+        }
+        return true;
+    }
+
+    // A method that checks if two numbers are permutations of each other
+    static bool IsPermutation(int a, int b)
+    {
+        // Convert the numbers to strings
+        var s1 = a.ToString();
+        var s2 = b.ToString();
+        // Sort their characters
+        var c1 = s1.ToCharArray();
+        var c2 = s2.ToCharArray();
+        Array.Sort(c1);
+        Array.Sort(c2);
+        // Check for equality
+        return new string(c1) == new string(c2);
+    }
+
+    // A method that generates all possible 4-digit numbers that start with a given digit and have the sub-string divisibility property
+    static List<int> GenerateNumbers(int first)
+    {
+        var result = new List<int>();
+        // An array of divisors for each sub-string
+        var divisors = new int[] { 2, 3, 5, 7, 11, 13, 17 };
+        // Loop through all possible values for the second digit
+        for (int second = first % 2 == 0 ? first + 2 : first + 1; second <= 9; second += 2)
+        {
+            // Loop through all possible values for the third digit
+            for (int third = second % 3 == 0 ? second + 6 : second + ((second + first) % 3); third <=9; third +=3)
+            {
+                // Loop through all possible values for the fourth digit
+                for (int fourth = third %5 ==0 ? third +5 : third + ((third + second) %5); fourth <=9; fourth +=5)
+                {
+                    // Form the number from the digits
+                    int number = first *1000 + second *100 + third *10 + fourth;
+                    // Check if the remaining digits are divisible by the required divisors
+                    bool valid = true;
+                    for (int i =1; i <=3; i++)
+                    {
+                        // Extract the sub-string of length three starting from index i
+                        int sub = number / (int)Math.Pow(10,3-i) %1000;
+                        // Check if it is divisible by the corresponding divisor
+                        if (sub % divisors[i+3] !=0)
+                        {
+                            valid = false;
+                            break;
+                        }
+                    }
+                    // Check if the number is prime and add it to the result if yes
+                    if (valid && IsPrime(number))
+                    {
+                        result.Add(number);
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
+    // A method that returns the 12-digit number formed by concatenating the three terms in the sequence
+    static long GetAnswer()
+    {
+        // Loop through all possible values for the first digit
+        for (int first = 1; first <= 9; first++)
+        {
+            // Generate all possible numbers that start with the first digit and have the property
+            var numbers = GenerateNumbers(first);
+            // Loop through all pairs of numbers in the list
+            for (int i = 0; i < numbers.Count - 1; i++)
+            {
+                for (int j = i + 1; j < numbers.Count; j++)
+                {
+                    // Check if the two numbers are permutations of each other
+                    if (IsPermutation(numbers[i], numbers[j]))
+                    {
+                        // Find the third number in the sequence by adding or subtracting the difference
+                        int diff = numbers[j] - numbers[i];
+                        int third = numbers[j] + diff;
+                        // Check if the third number is in the list and is a permutation of the others
+                        if (numbers.Contains(third) && IsPermutation(numbers[i], third))
+                        {
+                            // Return the 12-digit number formed by concatenating the three terms
+                            return long.Parse(numbers[i].ToString() + numbers[j].ToString() + third.ToString());
+                        }
+                    }
+                }
+            }
+        }
+        // Return -1 if no answer is found
+        return -1;
+    }
+
+    static void Main(string[] args)
+    {
+        Console.WriteLine(GetAnswer());
+    }
+}
