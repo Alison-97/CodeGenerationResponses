@@ -1,0 +1,26 @@
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int limit = 4000000;
+        int sum = 0;
+        int fibPrev = 1;
+        int fibCurr = 2;
+
+        while (fibCurr <= limit)
+        {
+            if (fibCurr % 2 == 0)
+            {
+                sum += fibCurr;
+            }
+
+            int fibNext = fibPrev + fibCurr;
+            fibPrev = fibCurr;
+            fibCurr = fibNext;
+        }
+
+        Console.WriteLine("The sum of even-valued terms in the Fibonacci sequence is: " + sum);
+    }
+}

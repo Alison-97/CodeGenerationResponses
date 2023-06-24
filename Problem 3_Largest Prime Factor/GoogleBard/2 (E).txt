@@ -1,0 +1,25 @@
+using System;
+
+public class LargestPrimeFactor
+{
+    public static long LargestPrimeFactor(long number)
+    {
+        long largestPrime = 2;
+        for (long i = 3; i <= number; i += 2)
+        {
+            while (number % i == 0)
+            {
+                largestPrime = i;
+                number /= i;
+            }
+        }
+        return largestPrime;
+    }
+
+    public static void Main(string[] args)
+    {
+        long number = 600851475143;
+        long largestPrime = LargestPrimeFactor(number);
+        Console.WriteLine("The largest prime factor of {0} is {1}", number, largestPrime);
+    }
+}

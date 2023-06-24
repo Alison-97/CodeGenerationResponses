@@ -1,0 +1,37 @@
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        // The number to find the largest prime factor of
+        long number = 600851475143;
+        // The current largest prime factor
+        long largest = 0;
+        // The current divisor to test
+        long divisor = 2;
+        
+        // Loop until the number is reduced to 1
+        while (number > 1)
+        {
+            // If the divisor is a factor of the number
+            if (number % divisor == 0)
+            {
+                // Update the largest prime factor
+                largest = divisor;
+                // Divide the number by the divisor
+                number /= divisor;
+                // Reset the divisor to 2
+                divisor = 2;
+            }
+            else
+            {
+                // Increment the divisor by 1
+                divisor++;
+            }
+        }
+        
+        // Print the result
+        Console.WriteLine("The largest prime factor of 600851475143 is " + largest);
+    }
+}

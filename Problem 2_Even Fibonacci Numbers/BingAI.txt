@@ -1,0 +1,22 @@
+using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        int sum = 0;
+        int fib1 = 1;
+        int fib2 = 2;
+        while (fib2 < 4000000)
+        {
+            if (fib2 % 2 == 0)
+            {
+                sum += fib2;
+            }
+            int temp = fib1 + fib2;
+            fib1 = fib2;
+            fib2 = temp;
+        }
+        Console.WriteLine("The sum of even-valued terms in the Fibonacci sequence whose values do not exceed four million is: " + sum);
+    }
+}

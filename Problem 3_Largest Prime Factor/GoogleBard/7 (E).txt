@@ -1,0 +1,24 @@
+using System;
+
+public class LargestPrimeFactor
+{
+    public static void Main(string[] args)
+    {
+        long number = 600851475143;
+        long largestPrimeFactor = 2;
+
+        while (number > 1)
+        {
+            if (number % largestPrimeFactor == 0)
+            {
+                number /= largestPrimeFactor;
+            }
+            else
+            {
+                largestPrimeFactor += 2;
+            }
+        }
+
+        Console.WriteLine("The largest prime factor of 600851475143 is {0}.", largestPrimeFactor);
+    }
+}

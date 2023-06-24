@@ -1,0 +1,25 @@
+using System;
+
+public class LargestPrimeFactor
+{
+    public static void Main(string[] args)
+    {
+        // Initialize the number and the largest prime factor.
+        long number = 600851475143;
+        long largestPrimeFactor = 2;
+
+        // Loop through all the prime numbers up to the square root of the number.
+        for (long i = 3; i * i <= number; i += 2)
+        {
+            // While the number is divisible by the current prime number, divide it and update the largest prime factor.
+            while (number % i == 0)
+            {
+                number /= i;
+                largestPrimeFactor = i;
+            }
+        }
+
+        // Print the largest prime factor.
+        Console.WriteLine("The largest prime factor of 600851475143 is {0}.", largestPrimeFactor);
+    }
+}
