@@ -1,0 +1,22 @@
+using System;
+
+class Program
+{
+    static long Difference(int n)
+    {
+        // Calculate the sum of squares using the formula
+        long sumOfSquares = n * (n + 1) * (2 * n + 1) / 6;
+
+        // Calculate the square of sum using the formula
+        long squareOfSum = (long)Math.Pow(n * (n + 1) / 2, 2);
+
+        // Return the difference
+        return squareOfSum - sumOfSquares;
+    }
+
+    static void Main(string[] args)
+    {
+        // Test the function with n = 100
+        Console.WriteLine(Difference(100));
+    }
+}

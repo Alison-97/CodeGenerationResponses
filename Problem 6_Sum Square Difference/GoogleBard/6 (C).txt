@@ -1,0 +1,29 @@
+using System;
+
+namespace DifferenceBetweenSumOfSquaresAndSquareOfSum
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n = 100;
+
+            // Calculate the sum of the squares of the first n natural numbers.
+            int sumOfSquares = 0;
+            for (int i = 1; i <= n; i++)
+            {
+                sumOfSquares += i * i;
+            }
+
+            // Calculate the square of the sum of the first n natural numbers.
+            int sum = (n * (n + 1)) / 2;
+            int squareOfSum = sum * sum;
+
+            // Calculate the difference between the sum of the squares and the square of the sum.
+            int difference = squareOfSum - sumOfSquares;
+
+            // Print the difference.
+            Console.WriteLine("The difference is {0}", difference);
+        }
+    }
+}

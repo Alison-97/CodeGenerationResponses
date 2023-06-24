@@ -1,0 +1,47 @@
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int largestPalindrome = FindLargestPalindrome();
+
+        Console.WriteLine("The largest palindrome made from the product of two 3-digit numbers is: {0}", largestPalindrome);
+    }
+
+    static bool IsPalindrome(int number)
+    {
+        string numberString = number.ToString();
+        int length = numberString.Length;
+
+        for (int i = 0; i < length / 2; i++)
+        {
+            if (numberString[i] != numberString[length - i - 1])
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    static int FindLargestPalindrome()
+    {
+        int largestPalindrome = 0;
+
+        for (int i = 999; i >= 100; i--)
+        {
+            for (int j = i; j >= 100; j--)
+            {
+                int product = i * j;
+
+                if (product > largestPalindrome && IsPalindrome(product))
+                {
+                    largestPalindrome = product;
+                }
+            }
+        }
+
+        return largestPalindrome;
+    }
+}

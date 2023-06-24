@@ -1,0 +1,34 @@
+using System;
+
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        // Initialize the answer to 1.
+        long answer = 1;
+
+        // Iterate over all the numbers from 1 to 20.
+        for (int i = 1; i <= 20; i++)
+        {
+            // Find the LCM of the answer and the current number.
+            long lcm = answer * i / GCD(answer, i);
+
+            // Update the answer to the LCM.
+            answer = lcm;
+        }
+
+        // Print the answer.
+        Console.WriteLine(answer);
+    }
+
+    // Find the GCD of two numbers.
+    public static long GCD(long a, long b)
+    {
+        if (a == 0)
+        {
+            return b;
+        }
+
+        return GCD(b % a, a);
+    }
+}

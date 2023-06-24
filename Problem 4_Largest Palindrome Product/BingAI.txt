@@ -1,0 +1,33 @@
+using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        int largestPalindrome = 0;
+
+        for (int i = 100; i <= 999; i++)
+        {
+            for (int j = 100; j <= 999; j++)
+            {
+                int product = i * j;
+                if (IsPalindrome(product) && product > largestPalindrome)
+                {
+                    largestPalindrome = product;
+                }
+            }
+        }
+
+        Console.WriteLine("The largest palindrome made from the product of two 3-digit numbers is: " + largestPalindrome);
+    }
+
+    static bool IsPalindrome(int number)
+    {
+        string numberString = number.ToString();
+        char[] numberArray = numberString.ToCharArray();
+        Array.Reverse(numberArray);
+        string reversedNumberString = new string(numberArray);
+
+        return numberString == reversedNumberString;
+    }
+}

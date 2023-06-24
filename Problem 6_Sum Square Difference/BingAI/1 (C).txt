@@ -1,0 +1,30 @@
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        // Declare variables to store the sum of squares and the square of sum
+        int sumOfSquares = 0;
+        int squareOfSum = 0;
+
+        // Loop through the first 100 natural numbers
+        for (int i = 1; i <= 100; i++)
+        {
+            // Add the square of the current number to the sum of squares
+            sumOfSquares += i * i;
+
+            // Add the current number to the square of sum
+            squareOfSum += i;
+        }
+
+        // Square the square of sum
+        squareOfSum *= squareOfSum;
+
+        // Calculate the difference
+        int difference = squareOfSum - sumOfSquares;
+
+        // Print the result
+        Console.WriteLine("The difference is " + difference);
+    }
+}

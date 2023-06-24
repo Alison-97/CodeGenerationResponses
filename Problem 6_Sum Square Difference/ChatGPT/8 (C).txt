@@ -1,0 +1,23 @@
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int n = 100;
+
+        int sumOfSquares = 0;
+        int sum = 0;
+
+        for (int i = 1; i <= n; i++)
+        {
+            sumOfSquares += i * i;
+            sum += i;
+        }
+
+        int squareOfSum = sum * sum;
+        int difference = squareOfSum - sumOfSquares;
+
+        Console.WriteLine("The difference between the sum of the squares and the square of the sum for the first {0} natural numbers is: {1}", n, difference);
+    }
+}

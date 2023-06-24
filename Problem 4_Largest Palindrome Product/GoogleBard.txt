@@ -1,0 +1,39 @@
+using System;
+
+public class Program {
+    public static void Main(string[] args) {
+        // Initialize the largest palindrome to 0.
+        long largestPalindrome = 0;
+
+        // Iterate over all the 3-digit numbers.
+        for (int i = 100; i <= 999; i++) {
+            // Iterate over all the 3-digit numbers.
+            for (int j = 100; j <= 999; j++) {
+                // Calculate the product of the two numbers.
+                long product = i * j;
+
+                // Check if the product is a palindrome.
+                if (IsPalindrome(product)) {
+                    // Update the largest palindrome if the product is larger than the current largest palindrome.
+                    largestPalindrome = product;
+                }
+            }
+        }
+
+        // Print the largest palindrome.
+        Console.WriteLine("The largest palindrome made from the product of two 3-digit numbers is {0}.", largestPalindrome);
+    }
+
+    // A function to check if a number is a palindrome.
+    public static bool IsPalindrome(long number) {
+        // Reverse the number.
+        long reversedNumber = 0;
+        while (number > 0) {
+            reversedNumber = reversedNumber * 10 + number % 10;
+            number /= 10;
+        }
+
+        // Check if the reversed number is equal to the original number.
+        return number == reversedNumber;
+    }
+}

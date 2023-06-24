@@ -1,0 +1,41 @@
+using System;
+
+class Program
+{
+    static long FindSmallestDivisibleNumber(int n)
+    {
+        long lcm = 1;
+
+        for (int i = 2; i <= n; i++)
+        {
+            lcm = GetLeastCommonMultiple(lcm, i);
+        }
+
+        return lcm;
+    }
+
+    static long GetLeastCommonMultiple(long a, long b)
+    {
+        return (a * b) / GetGreatestCommonDivisor(a, b);
+    }
+
+    static long GetGreatestCommonDivisor(long a, long b)
+    {
+        while (b != 0)
+        {
+            long temp = b;
+            b = a % b;
+            a = temp;
+        }
+
+        return a;
+    }
+
+    static void Main()
+    {
+        int n = 20;
+        long smallestDivisibleNumber = FindSmallestDivisibleNumber(n);
+
+        Console.WriteLine("The smallest positive number divisible by all the numbers from 1 to {0} is: {1}", n, smallestDivisibleNumber);
+    }
+}
