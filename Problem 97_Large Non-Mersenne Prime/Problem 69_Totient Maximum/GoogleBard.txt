@@ -1,0 +1,28 @@
+using System;
+
+public class EulersTotientFunction
+{
+    public static void Main()
+    {
+        int maxValue = 0;
+        int maxIndex = 0;
+        for (int i = 2; i <= 1000000; i++)
+        {
+            int phi = 0;
+            for (int j = 1; j < i; j++)
+            {
+                if (i % j == 0)
+                {
+                    phi++;
+                }
+            }
+            double ratio = i / (double)phi;
+            if (ratio > maxValue)
+            {
+                maxValue = ratio;
+                maxIndex = i;
+            }
+        }
+        Console.WriteLine("The maximum value of n / φ(n) for n <= 1000000 is {0} at n = {1}", maxValue, maxIndex);
+    }
+}

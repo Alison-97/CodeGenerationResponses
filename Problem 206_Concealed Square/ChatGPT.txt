@@ -1,0 +1,41 @@
+using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        long lowerBound = (long)Math.Ceiling(Math.Sqrt(1020304050607080900));
+        long upperBound = (long)Math.Floor(Math.Sqrt(1929394959697989990));
+
+        for (long i = lowerBound; i <= upperBound; i++)
+        {
+            long square = i * i;
+
+            if (CheckPattern(square))
+            {
+                Console.WriteLine("Unique Positive Integer: " + i);
+                break;
+            }
+        }
+    }
+
+    static bool CheckPattern(long num)
+    {
+        string pattern = "1_2_3_4_5_6_7_8_9_0";
+
+        string numString = num.ToString();
+        int patternIndex = 0;
+
+        for (int i = 0; i < numString.Length; i++)
+        {
+            if (numString[i] == pattern[patternIndex])
+            {
+                patternIndex++;
+                if (patternIndex >= pattern.Length)
+                    return true;
+            }
+        }
+
+        return false;
+    }
+}

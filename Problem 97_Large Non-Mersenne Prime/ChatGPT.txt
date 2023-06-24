@@ -1,0 +1,18 @@
+using System;
+using System.Numerics;
+
+class Program
+{
+    static void Main()
+    {
+        BigInteger baseNumber = 2;
+        BigInteger exponent = 7830457;
+        BigInteger modulus = BigInteger.Pow(10, 10);
+
+        BigInteger result = BigInteger.ModPow(baseNumber, exponent, modulus);
+        BigInteger primeNumber = (28433 * result + 1) % modulus;
+
+        string primeString = primeNumber.ToString().PadLeft(10, '0');
+        Console.WriteLine("Last ten digits of the prime number: " + primeString);
+    }
+}

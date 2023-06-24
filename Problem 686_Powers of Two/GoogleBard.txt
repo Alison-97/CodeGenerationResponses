@@ -1,0 +1,26 @@
+using System;
+
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        int p12 = 7; // p(12, 1)
+        int p122 = 80; // p(12, 2)
+        int p12345 = 12710; // p(123, 45)
+
+        // Find p(123, 678910)
+        int p = 1;
+        int powerOfTwo = 1;
+        while (p < 678910)
+        {
+            powerOfTwo *= 2;
+            string binaryRepresentation = Convert.ToString(powerOfTwo, 2);
+            if (binaryRepresentation.StartsWith("123"))
+            {
+                p = powerOfTwo;
+            }
+        }
+
+        Console.WriteLine("p(123, 678910) = {0}", p);
+    }
+}

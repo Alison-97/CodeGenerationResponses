@@ -1,0 +1,54 @@
+using System;
+
+class Program
+{
+    // A function to calculate the greatest common divisor of two numbers
+    static int GCD(int a, int b)
+    {
+        if (b == 0) return a;
+        return GCD(b, a % b);
+    }
+
+    // A function to check if two numbers are relatively prime
+    static bool RelativelyPrime(int a, int b)
+    {
+        return GCD(a, b) == 1;
+    }
+
+    // A function to calculate the Euler's totient function of a number
+    static int Phi(int n)
+    {
+        int count = 0;
+        for (int i = 1; i <= n; i++)
+        {
+            if (RelativelyPrime(i, n)) count++;
+        }
+        return count;
+    }
+
+    // A function to find the value of n <= limit for which n / Phi(n) is a maximum
+    static int MaxNPhi(int limit)
+    {
+        double max = 0;
+        int result = 0;
+        for (int n = 2; n <= limit; n++)
+        {
+            double ratio = (double)n / Phi(n);
+            if (ratio > max)
+            {
+                max = ratio;
+                result = n;
+            }
+        }
+        return result;
+    }
+
+    static void Main(string[] args)
+    {
+        // Test the code with limit = 10
+        Console.WriteLine(MaxNPhi(10)); // Output: 6
+
+        // Find the answer with limit = 1000000
+        Console.WriteLine(MaxNPhi(1000000)); // Output: 510510
+    }
+}

@@ -1,0 +1,39 @@
+using System;
+using System.Numerics;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // The square root of 1020304050607080900 is about 3.2e9
+        // The square root of 1929394959697989990 is about 1.4e10
+        // So we only need to check the integers in this range
+        BigInteger lower = (BigInteger) Math.Pow(10, 9) * 32;
+        BigInteger upper = (BigInteger) Math.Pow(10, 10) * 14;
+
+        // We can skip the odd numbers since the square will end with an even digit
+        for (BigInteger n = lower; n <= upper; n += 2)
+        {
+            // Check if the square has the desired form
+            if (HasForm(n * n))
+            {
+                Console.WriteLine("The answer is {0}", n);
+                break;
+            }
+        }
+    }
+
+    // A helper method to check if a number has the form 1_2_3_4_5_6_7_8_9_0
+    static bool HasForm(BigInteger x)
+    {
+        // Convert the number to a string and reverse it
+        string s = x.ToString();
+        char[] chars = s.ToCharArray();
+        Array.Reverse(chars);
+        s = new string(chars);
+
+        // Check if the string matches the pattern
+        return s[0] == '0' && s[2] == '9' && s[4] == '8' && s[6] == '7' && s[8] == '6' &&
+               s[10] == '5' && s[12] == '4' && s[14] == '3' && s[16] == '2' && s[18] == '1';
+    }
+}

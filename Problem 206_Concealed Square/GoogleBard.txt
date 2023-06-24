@@ -1,0 +1,24 @@
+using System;
+
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        int low = (int)Math.Floor(Math.Sqrt(1020304050607080900)) / 10;
+        int high = (int)Math.Floor(Math.Sqrt(1929394959697989900)) / 10;
+
+        int result = 0;
+        for (int i = low; i <= high; i += 2)
+        {
+            int square = i * i;
+            string squareStr = square.ToString();
+            if (squareStr.Substring(0, 9) == "1_2_3_4_5_6_7_8_9")
+            {
+                result = i;
+                break;
+            }
+        }
+
+        Console.WriteLine("The unique integer is: {0}", result);
+    }
+}

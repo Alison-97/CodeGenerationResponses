@@ -1,0 +1,32 @@
+using System;
+
+public class NumberChain
+{
+    public static void Main(string[] args)
+    {
+        int limit = 10000000;
+        int count = 0;
+
+        for (int num = 1; num < limit; num++)
+        {
+            int currentNum = num;
+
+            while (currentNum != 1 && currentNum != 89)
+            {
+                int sumOfSquares = 0;
+                while (currentNum > 0)
+                {
+                    int digit = currentNum % 10;
+                    sumOfSquares += digit * digit;
+                    currentNum /= 10;
+                }
+                currentNum = sumOfSquares;
+            }
+
+            if (currentNum == 89)
+                count++;
+        }
+
+        Console.WriteLine("Number of starting numbers below ten million that arrive at 89: " + count);
+    }
+}

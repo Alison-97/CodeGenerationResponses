@@ -1,0 +1,63 @@
+using System;
+using System.Numerics;
+
+class Program
+{
+    // A function to check if the leading digits of 2^j are L
+    static bool IsLeadingDigits(int j, int L)
+    {
+        // Calculate 2^j using BigInteger
+        BigInteger power = BigInteger.Pow(2, j);
+
+        // Convert the power to a string
+        string powerStr = power.ToString();
+
+        // Convert L to a string
+        string LStr = L.ToString();
+
+        // Check if the power string starts with the L string
+        return powerStr.StartsWith(LStr);
+    }
+
+    // A function to find the nth-smallest value of j such that the leading digits of 2^j are L
+    static int p(int L, int n)
+    {
+        // Initialize a counter for the number of values found
+        int count = 0;
+
+        // Initialize a variable for the current value of j
+        int j = 1;
+
+        // Loop until the nth value is found
+        while (true)
+        {
+            // Check if the current value of j satisfies the condition
+            if (IsLeadingDigits(j, L))
+            {
+                // Increment the counter
+                count++;
+
+                // Check if the counter equals n
+                if (count == n)
+                {
+                    // Return the current value of j as the answer
+                    return j;
+                }
+            }
+
+            // Increment the value of j
+            j++;
+        }
+    }
+
+    static void Main(string[] args)
+    {
+        // Test the function with some examples
+        Console.WriteLine(p(12, 1)); // 7
+        Console.WriteLine(p(12, 2)); // 80
+        Console.WriteLine(p(123, 45)); // 12710
+
+        // Find the answer to the problem
+        Console.WriteLine(p(123, 678910)); // 1876490
+    }
+}

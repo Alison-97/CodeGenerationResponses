@@ -1,0 +1,82 @@
+using System;
+using System.Collections.Generic;
+
+public class Program
+{
+    public static void Main()
+    {
+        int count = 0;
+        long sum = 0;
+        long number = 10; // Starting from 10 as the first reversible prime square is 169
+
+        while (count < 50)
+        {
+            if (IsReversiblePrimeSquare(number))
+            {
+                sum += number;
+                count++;
+            }
+
+            number++;
+        }
+
+        Console.WriteLine("The sum of the first 50 reversible prime squares is: " + sum);
+    }
+
+    public static bool IsReversiblePrimeSquare(long number)
+    {
+        if (IsPalindrome(number))
+            return false;
+
+        long reverse = ReverseNumber(number);
+        if (IsPalindrome(reverse))
+            return false;
+
+        return IsPrime((long)Math.Sqrt(number)) && IsPrime((long)Math.Sqrt(reverse));
+    }
+
+    public static bool IsPalindrome(long number)
+    {
+        string numberString = number.ToString();
+        int left = 0;
+        int right = numberString.Length - 1;
+
+        while (left < right)
+        {
+            if (numberString[left] != numberString[right])
+                return false;
+
+            left++;
+            right--;
+        }
+
+        return true;
+    }
+
+    public static long ReverseNumber(long number)
+    {
+        long reverse = 0;
+
+        while (number > 0)
+        {
+            reverse = reverse * 10 + number % 10;
+            number /= 10;
+        }
+
+        return reverse;
+    }
+
+    public static bool IsPrime(long number)
+    {
+        if (number < 2)
+            return false;
+
+        for (long i = 2; i * i <= number; i++)
+        {
+            if (number % i == 0)
+                return false;
+        }
+
+        return true;
+    }
+}

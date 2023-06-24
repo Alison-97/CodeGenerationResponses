@@ -1,0 +1,82 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+class Program
+{
+    // A method to check if a number is prime
+    static bool IsPrime(int n)
+    {
+        if (n <= 1) return false;
+        if (n == 2) return true;
+        if (n % 2 == 0) return false;
+        for (int i = 3; i * i <= n; i += 2)
+        {
+            if (n % i == 0) return false;
+        }
+        return true;
+    }
+
+    // A method to reverse a number
+    static int Reverse(int n)
+    {
+        int rev = 0;
+        while (n > 0)
+        {
+            rev = rev * 10 + n % 10;
+            n /= 10;
+        }
+        return rev;
+    }
+
+    // A method to check if a number is a reversible prime square
+    static bool IsReversiblePrimeSquare(int n)
+    {
+        // Check if n is not a palindrome
+        if (n == Reverse(n)) return false;
+
+        // Check if n is the square of a prime
+        int root = (int)Math.Sqrt(n);
+        if (root * root != n) return false;
+        if (!IsPrime(root)) return false;
+
+        // Check if the reverse of n is also the square of a prime
+        int rev = Reverse(n);
+        int revRoot = (int)Math.Sqrt(rev);
+        if (revRoot * revRoot != rev) return false;
+        if (!IsPrime(revRoot)) return false;
+
+        // If all conditions are met, return true
+        return true;
+    }
+
+    static void Main(string[] args)
+    {
+        // A list to store the reversible prime squares
+        List<int> rps = new List<int>();
+
+        // A variable to keep track of the current number to test
+        int num = 1;
+
+        // A loop to find the first 50 reversible prime squares
+        while (rps.Count < 50)
+        {
+            // If num is a reversible prime square, add it to the list
+            if (IsReversiblePrimeSquare(num))
+            {
+                rps.Add(num);
+            }
+
+            // Increment num by 2 to skip even numbers
+            num += 2;
+        }
+
+        // Print the list of reversible prime squares
+        Console.WriteLine("The first 50 reversible prime squares are:");
+        Console.WriteLine(string.Join(", ", rps));
+
+        // Compute and print the sum of the list
+        Console.WriteLine("The sum of the first 50 reversible prime squares is:");
+        Console.WriteLine(rps.Sum());
+    }
+}

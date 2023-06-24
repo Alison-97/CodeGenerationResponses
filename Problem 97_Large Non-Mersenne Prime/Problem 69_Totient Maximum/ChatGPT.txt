@@ -1,0 +1,51 @@
+using System;
+
+public class Program
+{
+    public static void Main()
+    {
+        int limit = 1000000;
+        int maxN = 0;
+        double maxRatio = 0;
+
+        for (int n = 2; n <= limit; n++)
+        {
+            int phi = TotientFunction(n);
+            double ratio = (double)n / phi;
+
+            if (ratio > maxRatio)
+            {
+                maxRatio = ratio;
+                maxN = n;
+            }
+        }
+
+        Console.WriteLine("Value of n: " + maxN);
+        Console.WriteLine("n/φ(n) ratio: " + maxRatio);
+    }
+
+    public static int TotientFunction(int n)
+    {
+        int result = n;
+
+        for (int p = 2; p * p <= n; p++)
+        {
+            if (n % p == 0)
+            {
+                while (n % p == 0)
+                {
+                    n /= p;
+                }
+
+                result -= result / p;
+            }
+        }
+
+        if (n > 1)
+        {
+            result -= result / n;
+        }
+
+        return result;
+    }
+}

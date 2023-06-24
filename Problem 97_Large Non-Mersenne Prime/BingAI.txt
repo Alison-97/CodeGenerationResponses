@@ -1,0 +1,37 @@
+using System;
+using System.Numerics;
+
+class Solution {
+
+  // Define a method to find the last ten digits of the prime number
+  static long LastTenDigits() {
+    // Initialize the base and the exponent of the prime number
+    long base = 28433;
+    long exponent = 7830457;
+    // Initialize the modulus to 10^10
+    long modulus = 10000000000;
+    // Initialize the result to 1
+    BigInteger result = 1;
+    // Loop until the exponent is zero
+    while (exponent > 0) {
+      // Check if the exponent is odd
+      if (exponent % 2 == 1) {
+        // Multiply the result by the base and take the modulus
+        result = (result * base) % modulus;
+      }
+      // Divide the exponent by 2
+      exponent /= 2;
+      // Square the base and take the modulus
+      base = (base * base) % modulus;
+    }
+    // Add 1 to the result and take the modulus
+    result = (result + 1) % modulus;
+    // Return the result as a long number
+    return (long)result;
+  }
+
+  static void Main(string[] args) {
+    // Test the method with an example
+    Console.WriteLine($"The last ten digits of this prime number are {LastTenDigits()}");
+  }
+}
