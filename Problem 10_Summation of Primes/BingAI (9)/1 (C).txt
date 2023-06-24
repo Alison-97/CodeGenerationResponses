@@ -1,0 +1,45 @@
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        // Define the upper limit
+        const int limit = 2000000;
+
+        // Create a boolean array to mark the primes
+        bool[] isPrime = new bool[limit + 1];
+
+        // Initialize all entries as true except 0 and 1
+        for (int i = 2; i <= limit; i++)
+        {
+            isPrime[i] = true;
+        }
+
+        // Loop from 2 to the square root of the limit
+        for (int i = 2; i * i <= limit; i++)
+        {
+            // If i is marked as prime, then mark all its multiples as false
+            if (isPrime[i])
+            {
+                for (int j = i * i; j <= limit; j += i)
+                {
+                    isPrime[j] = false;
+                }
+            }
+        }
+
+        // Sum up all the primes
+        long sum = 0;
+        for (int i = 2; i <= limit; i++)
+        {
+            if (isPrime[i])
+            {
+                sum += i;
+            }
+        }
+
+        // Print the result
+        Console.WriteLine("The sum of all the primes below {0} is {1}", limit, sum);
+    }
+}

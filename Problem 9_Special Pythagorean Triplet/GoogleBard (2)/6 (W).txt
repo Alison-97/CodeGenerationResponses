@@ -1,0 +1,20 @@
+using System;
+
+public class PythagoreanTriplet
+{
+    public static void Main()
+    {
+        int product = 0;
+        for (int a = 1; a < 1000; a++)
+        {
+            int b = 1000 - a;
+            int c = 1000 - a - b;
+            if (a * a + b * b == c * c)
+            {
+                product = a * b * c;
+                break;
+            }
+        }
+        Console.WriteLine("The product abc is: " + product);
+    }
+}

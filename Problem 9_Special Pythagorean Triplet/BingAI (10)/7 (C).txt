@@ -1,0 +1,45 @@
+using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Initialize the product to zero
+        int product = 0;
+
+        // Loop through all possible values of a from 1 to 332
+        for (int a = 1; a <= 332; a++)
+        {
+            // Loop through all possible values of b from a+1 to 499
+            for (int b = a + 1; b <= 499; b++)
+            {
+                // Calculate c from the equation a + b + c = 1000
+                int c = 1000 - a - b;
+
+                // Check if the triplet is Pythagorean
+                if (a * a + b * b == c * c)
+                {
+                    // Calculate the product and break the loops
+                    product = a * b * c;
+                    break;
+                }
+            }
+
+            // Break the outer loop if the product is found
+            if (product > 0)
+            {
+                break;
+            }
+        }
+
+        // Print the product or a message if not found
+        if (product > 0)
+        {
+            Console.WriteLine("The product of the Pythagorean triplet is {0}", product);
+        }
+        else
+        {
+            Console.WriteLine("No Pythagorean triplet exists for which a + b + c = 1000");
+        }
+    }
+}

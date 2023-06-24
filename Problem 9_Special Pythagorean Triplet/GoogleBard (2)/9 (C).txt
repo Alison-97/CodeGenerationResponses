@@ -1,0 +1,28 @@
+using System;
+
+public class PythagoreanTriplet
+{
+    public static int Product(int sum)
+    {
+        for (int a = 1; a < sum; a++)
+        {
+            for (int b = a + 1; b < sum; b++)
+            {
+                int c = sum - a - b;
+                if (a * a + b * b == c * c)
+                {
+                    return a * b * c;
+                }
+            }
+        }
+
+        return -1;
+    }
+
+    public static void Main(string[] args)
+    {
+        int sum = 1000;
+        int product = Product(sum);
+        Console.WriteLine("The product is: {0}", product);
+    }
+}

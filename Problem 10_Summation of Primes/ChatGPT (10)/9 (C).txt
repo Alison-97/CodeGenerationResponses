@@ -1,0 +1,45 @@
+using System;
+
+public class PrimeSumCalculator
+{
+    public static void Main(string[] args)
+    {
+        long limit = 2000000;
+        long sumOfPrimes = GetSumOfPrimes(limit);
+        
+        Console.WriteLine($"The sum of all primes below {limit} is: {sumOfPrimes}");
+    }
+
+    public static long GetSumOfPrimes(long limit)
+    {
+        long sum = 0;
+        
+        for (long number = 2; number < limit; number++)
+        {
+            if (IsPrime(number))
+            {
+                sum += number;
+            }
+        }
+        
+        return sum;
+    }
+
+    public static bool IsPrime(long number)
+    {
+        if (number < 2)
+        {
+            return false;
+        }
+        
+        for (long i = 2; i <= Math.Sqrt(number); i++)
+        {
+            if (number % i == 0)
+            {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+}

@@ -1,0 +1,43 @@
+using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Define the upper limit
+        const int limit = 2000000;
+
+        // Create a boolean array to mark the primes
+        bool[] isPrime = new bool[limit + 1];
+
+        // Initialize all entries as true
+        for (int i = 0; i <= limit; i++)
+            isPrime[i] = true;
+
+        // Mark multiples of 2 as false
+        for (int i = 4; i <= limit; i += 2)
+            isPrime[i] = false;
+
+        // Loop from 3 to the square root of the limit
+        for (int i = 3; i * i <= limit; i += 2)
+        {
+            // If i is prime, mark its multiples as false
+            if (isPrime[i])
+            {
+                for (int j = i * i; j <= limit; j += i * 2)
+                    isPrime[j] = false;
+            }
+        }
+
+        // Sum up the primes
+        long sum = 0;
+        for (int i = 2; i <= limit; i++)
+        {
+            if (isPrime[i])
+                sum += i;
+        }
+
+        // Print the result
+        Console.WriteLine("The sum of all the primes below two million is {0}", sum);
+    }
+}

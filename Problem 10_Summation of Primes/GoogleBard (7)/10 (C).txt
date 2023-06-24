@@ -1,0 +1,45 @@
+using System;
+
+public class Program
+{
+    static void Main(string[] args)
+    {
+        // Define the maximum number to check for primes.
+        const int MAX_NUMBER = 2000000;
+
+        // Initialize the sum of primes.
+        long sum = 0;
+
+        // Create a boolean array to store whether a number is prime or not.
+        bool[] isPrime = new bool[MAX_NUMBER + 1];
+        for (int i = 2; i <= MAX_NUMBER; i++)
+        {
+            isPrime[i] = true;
+        }
+
+        // Mark all multiples of primes as non-prime.
+        for (int i = 2; i * i <= MAX_NUMBER; i++)
+        {
+            if (isPrime[i])
+            {
+                for (int j = i * i; j <= MAX_NUMBER; j += i)
+                {
+                    isPrime[j] = false;
+                }
+            }
+        }
+
+        // Iterate through all numbers from 2 to MAX_NUMBER.
+        for (int i = 2; i <= MAX_NUMBER; i++)
+        {
+            // If the number is prime, add it to the sum.
+            if (isPrime[i])
+            {
+                sum += i;
+            }
+        }
+
+        // Print the sum of primes.
+        Console.WriteLine("The sum of all primes below 2 million is {0}.", sum);
+    }
+}

@@ -1,0 +1,26 @@
+using System;
+
+public class Program {
+
+    public static void Main(string[] args) {
+        int count = 0;
+        int currentNumber = 2;
+        while (count < 10001) {
+            if (IsPrime(currentNumber)) {
+                count++;
+            }
+            currentNumber++;
+        }
+        Console.WriteLine("The 10,001st prime number is: {0}", currentNumber - 1);
+    }
+
+    private static bool IsPrime(int number) {
+        for (int i = 2; i * i <= number; i++) {
+            if (number % i == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+ 

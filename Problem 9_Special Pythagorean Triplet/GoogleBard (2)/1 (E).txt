@@ -1,0 +1,37 @@
+using System;
+
+public class PythagoreanTriplet
+{
+    public static int[] FindTriplet(int sum)
+    {
+        int a, b, c;
+
+        for (a = 1; a < sum; a++)
+        {
+            b = sum - a;
+            c = Math.Sqrt(a * a + b * b);
+
+            if (c * c == a * a + b * b && a < b && b < c)
+            {
+                return new int[] { a, b, c };
+            }
+        }
+
+        return null;
+    }
+
+    public static void Main()
+    {
+        int[] triplet = FindTriplet(1000);
+
+        if (triplet == null)
+        {
+            Console.WriteLine("No Pythagorean triplet found");
+        }
+        else
+        {
+            Console.WriteLine("The Pythagorean triplet is {0}, {1}, {2}", triplet[0], triplet[1], triplet[2]);
+            Console.WriteLine("The product abc is {0}", triplet[0] * triplet[1] * triplet[2]);
+        }
+    }
+}

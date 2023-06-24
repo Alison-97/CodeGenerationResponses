@@ -1,0 +1,44 @@
+using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        long limit = 2000000;
+        long sumOfPrimes = FindSumOfPrimes(limit);
+        
+        Console.WriteLine($"The sum of all primes below {limit} is: {sumOfPrimes}");
+    }
+
+    static long FindSumOfPrimes(long limit)
+    {
+        bool[] isPrime = new bool[limit]; // Array to store whether a number is prime
+        for (long i = 2; i < limit; i++)
+        {
+            isPrime[i] = true; // Initialize all numbers as prime
+        }
+
+        // Sieve of Eratosthenes algorithm to find primes
+        for (long p = 2; p * p < limit; p++)
+        {
+            if (isPrime[p] == true)
+            {
+                for (long i = p * p; i < limit; i += p)
+                {
+                    isPrime[i] = false; // Mark multiples of p as non-prime
+                }
+            }
+        }
+
+        long sum = 0;
+        for (long i = 2; i < limit; i++)
+        {
+            if (isPrime[i] == true)
+            {
+                sum += i; // Add prime numbers to the sum
+            }
+        }
+
+        return sum;
+    }
+}

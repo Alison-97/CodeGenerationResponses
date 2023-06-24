@@ -1,0 +1,45 @@
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main()
+    {
+        // Initialize a list of booleans to represent the numbers from 0 to 2 million
+        List<bool> isPrime = new List<bool>(2000001);
+        for (int i = 0; i < isPrime.Capacity; i++)
+        {
+            isPrime.Add(true);
+        }
+
+        // Mark 0 and 1 as not prime
+        isPrime[0] = false;
+        isPrime[1] = false;
+
+        // Loop from 2 to the square root of 2 million
+        for (int i = 2; i * i <= 2000000; i++)
+        {
+            // If the number is marked as prime, mark all its multiples as not prime
+            if (isPrime[i])
+            {
+                for (int j = i * i; j <= 2000000; j += i)
+                {
+                    isPrime[j] = false;
+                }
+            }
+        }
+
+        // Sum up all the numbers that are marked as prime
+        long sum = 0;
+        for (int i = 0; i < isPrime.Count; i++)
+        {
+            if (isPrime[i])
+            {
+                sum += i;
+            }
+        }
+
+        // Print the result
+        Console.WriteLine("The sum of all the primes below two million is {0}", sum);
+    }
+}

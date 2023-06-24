@@ -1,0 +1,26 @@
+using System;
+
+namespace PythagoreanTriplet
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int sum = 1000;
+            int a, b, c;
+
+            for (a = 1; a < sum; a++)
+            {
+                b = sum - a;
+                c = Math.Sqrt(a * a + b * b);
+
+                if (c * c == a * a + b * b && a < b && b < c)
+                {
+                    Console.WriteLine("The Pythagorean triplet with sum {0} is {1}, {2}, {3}", sum, a, b, c);
+                    Console.WriteLine("The product is {0}", a * b * c);
+                    break;
+                }
+            }
+        }
+    }
+}

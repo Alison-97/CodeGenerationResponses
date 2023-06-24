@@ -1,0 +1,38 @@
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        long limit = 2000000;
+        long sum = 0;
+
+        for (long number = 2; number < limit; number++)
+        {
+            if (IsPrime(number))
+            {
+                sum += number;
+            }
+        }
+
+        Console.WriteLine("The sum of all primes below two million is: " + sum);
+    }
+
+    static bool IsPrime(long number)
+    {
+        if (number < 2)
+        {
+            return false;
+        }
+
+        for (long i = 2; i * i <= number; i++)
+        {
+            if (number % i == 0)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+}

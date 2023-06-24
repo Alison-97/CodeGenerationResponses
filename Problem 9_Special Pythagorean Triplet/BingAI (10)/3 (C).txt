@@ -1,0 +1,25 @@
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        // Loop through all possible values of a and b
+        for (int a = 1; a < 1000; a++)
+        {
+            for (int b = a + 1; b < 1000; b++)
+            {
+                // Calculate c from the given equation
+                int c = 1000 - a - b;
+
+                // Check if the triplet is Pythagorean
+                if (a * a + b * b == c * c)
+                {
+                    // Print the product abc
+                    Console.WriteLine(a * b * c);
+                    return;
+                }
+            }
+        }
+    }
+}

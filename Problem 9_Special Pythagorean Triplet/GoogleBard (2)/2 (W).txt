@@ -1,0 +1,23 @@
+using System;
+
+namespace PythagoreanTriplet
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int product = 0;
+            for (int a = 1; a < 1000; a++)
+            {
+                int c = 1000 - a;
+                int b = 1000 - a - c;
+                if (a * a + b * b == c * c)
+                {
+                    product = a * b * c;
+                    break;
+                }
+            }
+            Console.WriteLine("The product abc is {0}", product);
+        }
+    }
+}

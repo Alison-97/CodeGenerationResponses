@@ -1,0 +1,27 @@
+using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        int targetSum = 1000;
+        int product = FindPythagoreanTripletProduct(targetSum);
+        Console.WriteLine("The product of the Pythagorean triplet where a + b + c = 1000 is: " + product);
+    }
+
+    static int FindPythagoreanTripletProduct(int targetSum)
+    {
+        for (int a = 1; a < targetSum / 3; a++)
+        {
+            for (int b = a + 1; b < targetSum / 2; b++)
+            {
+                int c = targetSum - a - b;
+                if (a * a + b * b == c * c)
+                {
+                    return a * b * c;
+                }
+            }
+        }
+        return -1; // No Pythagorean triplet found
+    }
+}

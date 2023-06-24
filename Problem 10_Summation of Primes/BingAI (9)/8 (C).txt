@@ -1,0 +1,42 @@
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        // Initialize the sum to 2, the first prime number
+        long sum = 2;
+
+        // Loop through all odd numbers below two million
+        for (int i = 3; i < 2000000; i += 2)
+        {
+            // Check if the number is prime
+            if (IsPrime(i))
+            {
+                // Add it to the sum
+                sum += i;
+            }
+        }
+
+        // Print the result
+        Console.WriteLine("The sum of all the primes below two million is " + sum);
+    }
+
+    // A helper method to check if a number is prime
+    static bool IsPrime(int n)
+    {
+        // Assume n is positive and greater than 1
+        // Check if n is divisible by any number from 2 to its square root
+        for (int i = 2; i * i <= n; i++)
+        {
+            // If n is divisible by i, then it is not prime
+            if (n % i == 0)
+            {
+                return false;
+            }
+        }
+
+        // If no divisor is found, then n is prime
+        return true;
+    }
+}

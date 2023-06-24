@@ -1,0 +1,39 @@
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        // Initialize the array of booleans to true
+        bool[] isPrime = new bool[2000000];
+        for (int i = 0; i < isPrime.Length; i++)
+        {
+            isPrime[i] = true;
+        }
+
+        // Mark the multiples of each number as not prime
+        for (int i = 2; i * i < isPrime.Length; i++)
+        {
+            if (isPrime[i])
+            {
+                for (int j = i * i; j < isPrime.Length; j += i)
+                {
+                    isPrime[j] = false;
+                }
+            }
+        }
+
+        // Sum up the primes
+        long sum = 0;
+        for (int i = 2; i < isPrime.Length; i++)
+        {
+            if (isPrime[i])
+            {
+                sum += i;
+            }
+        }
+
+        // Print the result
+        Console.WriteLine("The sum of all the primes below two million is " + sum);
+    }
+}

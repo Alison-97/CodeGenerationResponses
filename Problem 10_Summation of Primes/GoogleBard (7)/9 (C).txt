@@ -1,0 +1,40 @@
+using System;
+
+public class Program
+{
+    static void Main(string[] args)
+    {
+        // Define the maximum number to check for primes.
+        const int MAX_NUMBER = 2000000;
+
+        // Initialize the sum of primes.
+        long sum = 0;
+
+        // Iterate through all numbers from 2 to MAX_NUMBER.
+        for (int i = 2; i <= MAX_NUMBER; i++)
+        {
+            // If the number is prime, add it to the sum.
+            if (IsPrime(i))
+            {
+                sum += i;
+            }
+        }
+
+        // Print the sum of primes.
+        Console.WriteLine("The sum of all primes below 2 million is {0}.", sum);
+    }
+
+    static bool IsPrime(int number)
+    {
+        // A prime number is divisible only by itself and 1.
+        for (int i = 2; i * i <= number; i++)
+        {
+            if (number % i == 0)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+}

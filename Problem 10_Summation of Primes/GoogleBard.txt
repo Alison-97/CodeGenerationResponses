@@ -1,0 +1,41 @@
+using System;
+
+public class SumOfPrimes
+{
+    public static void Main()
+    {
+        // Create a list to store the primes
+        List<int> primes = new List<int>();
+
+        // Loop from 2 to 2 million
+        for (int i = 2; i <= 2000000; i++)
+        {
+            // Check if i is prime
+            bool isPrime = true;
+            for (int j = 2; j * j <= i; j++)
+            {
+                if (i % j == 0)
+                {
+                    isPrime = false;
+                    break;
+                }
+            }
+
+            // If i is prime, add it to the list of primes
+            if (isPrime)
+            {
+                primes.Add(i);
+            }
+        }
+
+        // Calculate the sum of the primes
+        long sum = 0;
+        foreach (int prime in primes)
+        {
+            sum += prime;
+        }
+
+        // Print the sum
+        Console.WriteLine("The sum of all the primes below 2 million is: " + sum);
+    }
+}

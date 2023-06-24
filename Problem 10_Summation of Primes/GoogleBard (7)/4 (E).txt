@@ -1,0 +1,50 @@
+using System;
+
+public class SumOfPrimes
+{
+    public static void Main()
+    {
+        // Create an array to store the primes.
+        int[] primes = new int[2000000];
+
+        // Initialize the array to 0.
+        for (int i = 0; i < primes.Length; i++)
+        {
+            primes[i] = 0;
+        }
+
+        // Mark all the primes as true.
+        for (int i = 2; i < primes.Length; i++)
+        {
+            primes[i] = true;
+        }
+
+        // For each number from 2 to the square root of 2 million,
+        // mark all its multiples as false.
+        for (int i = 2; i * i < primes.Length; i++)
+        {
+            if (primes[i] == true)
+            {
+                for (int j = i * i; j < primes.Length; j += i)
+                {
+                    primes[j] = false;
+                }
+            }
+        }
+
+        // Initialize the sum of the primes to 0.
+        int sum = 0;
+
+        // Add all the primes to the sum.
+        for (int i = 2; i < primes.Length; i++)
+        {
+            if (primes[i] == true)
+            {
+                sum += i;
+            }
+        }
+
+        // Print the sum of the primes.
+        Console.WriteLine("The sum of the primes below 2 million is: {0}", sum);
+    }
+}
