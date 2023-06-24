@@ -1,0 +1,43 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        int x = FindSmallestInteger();
+        Console.WriteLine($"The smallest positive integer is: {x}");
+    }
+
+    static int FindSmallestInteger()
+    {
+        for (int i = 1; ; i++)
+        {
+            string xString = i.ToString();
+            bool hasSameDigits = true;
+
+            for (int j = 2; j <= 6; j++)
+            {
+                string multipliedString = (i * j).ToString();
+
+                if (!AreDigitsSame(xString, multipliedString))
+                {
+                    hasSameDigits = false;
+                    break;
+                }
+            }
+
+            if (hasSameDigits)
+                return i;
+        }
+    }
+
+    static bool AreDigitsSame(string str1, string str2)
+    {
+        var str1Digits = str1.ToCharArray().OrderBy(c => c);
+        var str2Digits = str2.ToCharArray().OrderBy(c => c);
+
+        return str1Digits.SequenceEqual(str2Digits);
+    }
+}

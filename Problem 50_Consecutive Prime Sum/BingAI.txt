@@ -1,0 +1,70 @@
+using System;
+using System.Collections.Generic;
+
+// Define a function to check if a number is prime
+bool IsPrime(int n)
+{
+  // Edge cases
+  if (n <= 1) return false;
+  if (n == 2) return true;
+  // Check for divisibility by 2
+  if (n % 2 == 0) return false;
+  // Check for divisibility by odd numbers up to the square root of n
+  int limit = (int)Math.Sqrt(n);
+  for (int i = 3; i <= limit; i += 2)
+  {
+    if (n % i == 0) return false;
+  }
+  // If no divisor is found, the number is prime
+  return true;
+}
+
+// Define a function to generate a list of primes up to a limit
+List<int> GeneratePrimes(int limit)
+{
+  // Create an empty list to store the primes
+  List<int> primes = new List<int>();
+  // Loop from 2 to the limit
+  for (int i = 2; i < limit; i++)
+  {
+    // Check if the number is prime and add it to the list if yes
+    if (IsPrime(i)) primes.Add(i);
+  }
+  // Return the list of primes
+  return primes;
+}
+
+// Define a function to find the prime below a limit that can be written as the sum of the most consecutive primes
+int FindMaxSumPrime(int limit)
+{
+  // Generate a list of primes up to the limit
+  List<int> primes = GeneratePrimes(limit);
+  // Initialize the variables to store the result
+  int maxSum = 0; // The maximum sum of consecutive primes that is also prime
+  int maxCount = 0; // The number of consecutive primes in the sum
+  int maxStart = -1; // The starting index of the consecutive primes in the sum
+  // Loop through the possible starting indices of the sum
+  for (int start = 0; start < primes.Count; start++)
+  {
+    // Initialize the variables to store the current sum and count
+    int sum = primes[start];
+    int count = 1;
+    // Loop through the possible ending indices of the sum
+    for (int end = start + 1; end < primes.Count; end++)
+    {
+      // Add the next prime to the sum and increment the count
+      sum += primes[end];
+      count++;
+      // Break the loop if the sum exceeds the limit
+      if (sum >= limit) break;
+      // Check if the sum is prime and update the result if yes and if the count is higher than the previous max count
+      if (IsPrime(sum) && count > maxCount)
+      {
+        maxSum = sum;
+        maxCount = count;
+        maxStart = start;
+      }
+    }
+    // Break the loop if there are not enough remaining primes to beat the max count
+    if (primes.Count - start < maxCount) break;
+  }

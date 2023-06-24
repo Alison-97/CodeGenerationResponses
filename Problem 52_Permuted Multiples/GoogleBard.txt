@@ -1,0 +1,47 @@
+using System;
+
+public class Program
+{
+
+    public static void Main()
+    {
+
+        // Create a function to check if two numbers have the same digits
+        public static bool HasSameDigits(int x, int y)
+        {
+
+            // Convert the numbers to strings
+            string xStr = x.ToString();
+            string yStr = y.ToString();
+
+            // Sort the strings
+            xStr = xStr.OrderBy(c => c).ToString();
+            yStr = yStr.OrderBy(c => c).ToString();
+
+            // Return true if the strings are equal
+            return xStr == yStr;
+        }
+
+        // Initialize the smallest positive integer to 1
+        int smallestX = 1;
+
+        // Iterate over all the positive integers from 1 to 100000
+        while (smallestX <= 100000)
+        {
+
+            // Check if 2x, 3x, 4x, 5x, and 6x have the same digits
+            if (HasSameDigits(2 * smallestX, 3 * smallestX) && HasSameDigits(4 * smallestX, 5 * smallestX) && HasSameDigits(5 * smallestX, 6 * smallestX))
+            {
+
+                // Break out of the loop if a match is found
+                break;
+            }
+
+            // Increment the smallest positive integer
+            smallestX++;
+        }
+
+        // Print the smallest positive integer
+        Console.WriteLine(smallestX);
+    }
+}

@@ -1,0 +1,38 @@
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int maxDigitalSum = 0;
+
+        for (int a = 1; a < 100; a++)
+        {
+            for (int b = 1; b < 100; b++)
+            {
+                int digitSum = CalculateDigitalSum(a, b);
+
+                if (digitSum > maxDigitalSum)
+                {
+                    maxDigitalSum = digitSum;
+                }
+            }
+        }
+
+        Console.WriteLine("Maximum digital sum: " + maxDigitalSum);
+    }
+
+    static int CalculateDigitalSum(int a, int b)
+    {
+        string number = BigInteger.Pow(a, b).ToString();
+        int sum = 0;
+
+        foreach (char digitChar in number)
+        {
+            int digit = (int)char.GetNumericValue(digitChar);
+            sum += digit;
+        }
+
+        return sum;
+    }
+}

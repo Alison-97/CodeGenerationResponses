@@ -1,0 +1,36 @@
+using System;
+
+public class Program
+{
+    static void Main(string[] args)
+    {
+        int count = 0;
+        for (int n = 1; n <= 9; n++)
+        {
+            int max = (int)Math.Pow(10, n) - 1;
+            for (int i = 1; i <= max; i++)
+            {
+                if (IsNthPower(n, i))
+                {
+                    count++;
+                }
+            }
+        }
+        Console.WriteLine(count);
+    }
+
+    static bool IsNthPower(int n, int number)
+    {
+        if (number == 0)
+        {
+            return false;
+        }
+        int exponent = 1;
+        while (number % n == 0)
+        {
+            exponent *= n;
+            number /= n;
+        }
+        return exponent == n;
+    }
+}

@@ -1,0 +1,38 @@
+using System;
+using System.Numerics;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Initialize a counter for the number of n-digit nth powers
+        int count = 0;
+
+        // Loop through the possible bases from 1 to 9
+        for (int base = 1; base <= 9; base++)
+        {
+            // Loop through the possible exponents from 1 to 21
+            // (21 is the maximum exponent such that base^exponent has at most 21 digits)
+            for (int exponent = 1; exponent <= 21; exponent++)
+            {
+                // Compute the power using BigInteger to avoid overflow
+                BigInteger power = BigInteger.Pow(base, exponent);
+
+                // Convert the power to a string and check its length
+                string powerString = power.ToString();
+                int length = powerString.Length;
+
+                // If the length is equal to the exponent, it is an n-digit nth power
+                if (length == exponent)
+                {
+                    // Increment the counter and print the power
+                    count++;
+                    Console.WriteLine($"{base}^{exponent} = {power}");
+                }
+            }
+        }
+
+        // Print the final count
+        Console.WriteLine($"There are {count} n-digit positive integers which are also an nth power.");
+    }
+}

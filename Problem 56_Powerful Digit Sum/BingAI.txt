@@ -1,0 +1,50 @@
+using System;
+using System.Numerics;
+
+class Solution {
+
+  // Define a method to find the sum of the digits in a number
+  static int SumOfDigits(BigInteger n) {
+    // Initialize the sum of digits to 0
+    int sum = 0;
+    // Loop until n is zero
+    while (n > 0) {
+      // Add the last digit of n to the sum
+      sum += (int)(n % 10);
+      // Divide n by 10 to remove the last digit
+      n /= 10;
+    }
+    // Return the sum as the answer
+    return sum;
+  }
+
+  // Define a method to find the maximum digital sum of numbers of the form, a^b, where a, b < 100
+  static int MaximumDigitalSum() {
+    // Initialize the maximum digital sum to 0
+    int max = 0;
+    // Loop through all possible values of a from 1 to 99
+    for (int a = 1; a < 100; a++) {
+      // Initialize the current power of a to a
+      BigInteger power = a;
+      // Loop through all possible values of b from 1 to 99
+      for (int b = 1; b < 100; b++) {
+        // Calculate the sum of digits in power
+        int sum = SumOfDigits(power);
+        // Check if the sum is greater than the current maximum
+        if (sum > max) {
+          // Update the maximum digital sum
+          max = sum;
+        }
+        // Multiply power by a to get the next power of a
+        power *= a;
+      }
+    }
+    // Return the maximum digital sum as the answer
+    return max;
+  }
+
+  static void Main(string[] args) {
+    // Test the method with an example
+    Console.WriteLine($"The maximum digital sum of numbers of the form, a^b, where a, b < 100 is {MaximumDigitalSum()}");
+  }
+}

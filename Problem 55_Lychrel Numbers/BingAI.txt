@@ -1,0 +1,66 @@
+using System;
+using System.Numerics;
+
+class Solution {
+
+  // Define a method to reverse a number
+  static BigInteger Reverse(BigInteger n) {
+    // Convert the number to a string
+    string s = n.ToString();
+    // Reverse the string using an array
+    char[] array = s.ToCharArray();
+    Array.Reverse(array);
+    // Convert the reversed string back to a number
+    BigInteger reversed = BigInteger.Parse(new string(array));
+    // Return the reversed number as the answer
+    return reversed;
+  }
+
+  // Define a method to check if a number is palindromic
+  static bool IsPalindromic(BigInteger n) {
+    // Check if n is equal to its reverse
+    return n == Reverse(n);
+  }
+
+  // Define a method to check if a number is Lychrel
+  static bool IsLychrel(BigInteger n) {
+    // Initialize the number of iterations to 0
+    int iterations = 0;
+    // Loop until the number of iterations reaches 50
+    while (iterations < 50) {
+      // Add n and its reverse
+      n += Reverse(n);
+      // Increment the number of iterations by 1
+      iterations++;
+      // Check if n is palindromic
+      if (IsPalindromic(n)) {
+        // Return false as n is not Lychrel
+        return false;
+      }
+    }
+    // Return true as n is Lychrel
+    return true;
+  }
+
+  // Define a method to find how many Lychrel numbers are there below ten-thousand
+  static int CountLychrelNumbers(int limit) {
+    // Initialize the count of Lychrel numbers to 0
+    int count = 0;
+    // Loop through all numbers from 1 to limit - 1
+    for (int i = 1; i < limit; i++) {
+      // Check if i is Lychrel
+      if (IsLychrel(i)) {
+        // Increment the count by 1
+        count++;
+      }
+    }
+    // Return the count as the answer
+    return count;
+  }
+
+  static void Main(string[] args) {
+    // Test the method with an example
+    int limit = 10000;
+    Console.WriteLine($"There are {CountLychrelNumbers(limit)} Lychrel numbers below {limit}");
+  }
+}

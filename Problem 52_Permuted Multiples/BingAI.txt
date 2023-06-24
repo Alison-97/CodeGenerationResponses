@@ -1,0 +1,22 @@
+using System;
+using System.Linq;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int x = 1;
+            while (true)
+            {
+                if (Enumerable.Range(2, 5).All(n => string.Concat((n * x).ToString().OrderBy(c => c)) == string.Concat((2 * x).ToString().OrderBy(c => c))))
+                {
+                    Console.WriteLine(x);
+                    break;
+                }
+                x++;
+            }
+        }
+    }
+}

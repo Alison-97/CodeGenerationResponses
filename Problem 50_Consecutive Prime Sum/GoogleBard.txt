@@ -1,0 +1,59 @@
+using System;
+
+public class LongestSumOfConsecutivePrimes
+{
+    public static void Main()
+    {
+        // Initialize the list of primes.
+        List<int> primes = new List<int>();
+        primes.Add(2);
+
+        // Find all the primes below one million.
+        for (int i = 3; i < 1000000; i++)
+        {
+            if (IsPrime(i))
+            {
+                primes.Add(i);
+            }
+        }
+
+        // Find the longest sum of consecutive primes below one million.
+        int longestSum = 0;
+        int longestLength = 0;
+        for (int length = primes.Count; length > 0; length--)
+        {
+            int sum = 0;
+            for (int i = 0; i < length; i++)
+            {
+                sum += primes[i];
+            }
+
+            if (IsPrime(sum) && sum > longestSum)
+            {
+                longestSum = sum;
+                longestLength = length;
+            }
+        }
+
+        // Print the result.
+        Console.WriteLine("The longest sum of consecutive primes below one million is {0}.", longestSum);
+    }
+
+    private static bool IsPrime(int number)
+    {
+        if (number < 2)
+        {
+            return false;
+        }
+
+        for (int i = 2; i * i <= number; i++)
+        {
+            if (number % i == 0)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+}

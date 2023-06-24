@@ -1,0 +1,47 @@
+using System;
+
+public class LychrelNumbers
+{
+    public static void Main()
+    {
+        int count = 0;
+        for (int i = 1; i < 10000; i++)
+        {
+            bool isLychrel = true;
+            for (int j = 0; j < 50; j++)
+            {
+                int rev = 0;
+                for (int k = i; k > 0; k /= 10)
+                {
+                    rev = rev * 10 + k % 10;
+                }
+
+                i += rev;
+
+                if (IsPalindrome(i))
+                {
+                    isLychrel = false;
+                    break;
+                }
+            }
+
+            if (isLychrel)
+            {
+                count++;
+            }
+        }
+
+        Console.WriteLine(count);
+    }
+
+    private static bool IsPalindrome(int i)
+    {
+        int rev = 0;
+        for (int k = i; k > 0; k /= 10)
+        {
+            rev = rev * 10 + k % 10;
+        }
+
+        return i == rev;
+    }
+}

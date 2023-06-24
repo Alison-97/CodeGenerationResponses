@@ -1,0 +1,49 @@
+using System;
+
+namespace DigitalSumOfPowers
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Initialize the maximum digital sum.
+            int maxSum = 0;
+
+            // Iterate over all possible values of a.
+            for (int a = 2; a < 100; a++)
+            {
+                // Iterate over all possible values of b.
+                for (int b = 1; b < 100; b++)
+                {
+                    // Calculate the digital sum of a^b.
+                    int digitalSum = DigitalSum(a^b);
+
+                    // Update the maximum digital sum if necessary.
+                    if (digitalSum > maxSum)
+                    {
+                        maxSum = digitalSum;
+                    }
+                }
+            }
+
+            // Print the maximum digital sum.
+            Console.WriteLine(maxSum);
+        }
+
+        private static int DigitalSum(int n)
+        {
+            // Initialize the digital sum.
+            int sum = 0;
+
+            // While n is not 0, add the digits of n to the sum.
+            while (n != 0)
+            {
+                sum += n % 10;
+                n /= 10;
+            }
+
+            // Return the digital sum.
+            return sum;
+        }
+    }
+}
