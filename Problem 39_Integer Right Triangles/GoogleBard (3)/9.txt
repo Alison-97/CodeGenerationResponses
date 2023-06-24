@@ -1,0 +1,32 @@
+using System;
+
+public class Problem39
+{
+    public static void Main()
+    {
+        int maxSolutions = 0;
+        int maxPerimeter = 0;
+
+        for (int perimeter = 2; perimeter <= 1000; perimeter++)
+        {
+            int solutions = 0;
+            for (int a = 1; a <= perimeter / 4; a++)
+            {
+                int b = (perimeter * (perimeter - 2 * a)) / (2 * (perimeter - a));
+                int c = Math.Floor(Math.Sqrt(a * a + b * b));
+                if (a + b + c == perimeter && a < b && b < c)
+                {
+                    solutions++;
+                }
+            }
+
+            if (solutions > maxSolutions)
+            {
+                maxSolutions = solutions;
+                maxPerimeter = perimeter;
+            }
+        }
+
+        Console.WriteLine("The maximum number of solutions is {0} for perimeter {1}.", maxSolutions, maxPerimeter);
+    }
+}

@@ -1,0 +1,35 @@
+using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        int maxSolutions = 0;
+        int maxPerimeter = 0;
+
+        for (int p = 1; p <= 1000; p++)
+        {
+            int solutions = 0;
+            for (int a = 1; a < p / 3; a++)
+            {
+                for (int b = a; b < p / 2; b++)
+                {
+                    int c = p - a - b;
+                    if (a * a + b * b == c * c)
+                    {
+                        solutions++;
+                    }
+                }
+            }
+
+            if (solutions > maxSolutions)
+            {
+                maxSolutions = solutions;
+                maxPerimeter = p;
+            }
+        }
+
+        Console.WriteLine("Perimeter: " + maxPerimeter);
+        Console.WriteLine("Number of solutions: " + maxSolutions);
+    }
+}

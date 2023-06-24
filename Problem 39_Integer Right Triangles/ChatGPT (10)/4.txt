@@ -1,0 +1,35 @@
+using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        int maxSolutions = 0;
+        int maxP = 0;
+
+        for (int p = 1; p <= 1000; p++)
+        {
+            int numSolutions = 0;
+
+            for (int a = 1; a < p; a++)
+            {
+                for (int b = a; b < p; b++)
+                {
+                    int c = p - a - b;
+                    if (c > 0 && a * a + b * b == c * c)
+                    {
+                        numSolutions++;
+                    }
+                }
+            }
+
+            if (numSolutions > maxSolutions)
+            {
+                maxSolutions = numSolutions;
+                maxP = p;
+            }
+        }
+
+        Console.WriteLine("Value of p <= 1000 with maximum solutions: " + maxP);
+    }
+}

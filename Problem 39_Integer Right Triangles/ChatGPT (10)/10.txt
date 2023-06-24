@@ -1,0 +1,38 @@
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int[] solutions = new int[1001]; // Array to store the count of solutions for each perimeter
+
+        for (int a = 1; a <= 1000; a++)
+        {
+            for (int b = a; b <= 1000; b++)
+            {
+                int c = (int)Math.Sqrt(a * a + b * b); // Calculate the hypotenuse
+
+                if (c > 1000) // Skip if the hypotenuse is greater than 1000
+                    continue;
+
+                if (a + b + c <= 1000 && c * c == a * a + b * b) // Check if it is a right-angled triangle
+                    solutions[a + b + c]++;
+            }
+        }
+
+        int maxSolutions = 0;
+        int maxP = 0;
+
+        for (int p = 1; p <= 1000; p++)
+        {
+            if (solutions[p] > maxSolutions)
+            {
+                maxSolutions = solutions[p];
+                maxP = p;
+            }
+        }
+
+        Console.WriteLine("Value of p: " + maxP);
+        Console.WriteLine("Number of solutions: " + maxSolutions);
+    }
+}

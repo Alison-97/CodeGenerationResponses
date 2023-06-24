@@ -1,0 +1,52 @@
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Initialize variables
+        int maxSolutions = 0; // Maximum number of solutions for any p
+        int maxP = 0; // The value of p that has the maximum number of solutions
+        List<string> solutions; // A list to store the solutions for each p
+
+        // Loop over all possible values of p from 1 to 1000
+        for (int p = 1; p <= 1000; p++)
+        {
+            // Reset the list of solutions for each p
+            solutions = new List<string>();
+
+            // Loop over all possible values of a from 1 to p/3
+            for (int a = 1; a <= p / 3; a++)
+            {
+                // Loop over all possible values of b from a to (p-a)/2
+                for (int b = a; b <= (p - a) / 2; b++)
+                {
+                    // Calculate c using the Pythagorean theorem
+                    double c = Math.Sqrt(a * a + b * b);
+
+                    // Check if c is an integer and if p = a + b + c
+                    if (c == (int)c && p == a + b + (int)c)
+                    {
+                        // Add the solution to the list
+                        solutions.Add("{" + a + "," + b + "," + (int)c + "}");
+                    }
+                }
+            }
+
+            // Check if the number of solutions for this p is greater than the maximum so far
+            if (solutions.Count > maxSolutions)
+            {
+                // Update the maximum number of solutions and the corresponding value of p
+                maxSolutions = solutions.Count;
+                maxP = p;
+            }
+
+            // Print out the solutions for this p
+            Console.WriteLine("p = " + p + ": " + string.Join(",", solutions));
+        }
+
+        // Print out the final answer
+        Console.WriteLine("The value of p <= 1000 that has the maximum number of solutions is " + maxP + " with " + maxSolutions + " solutions.");
+    }
+}

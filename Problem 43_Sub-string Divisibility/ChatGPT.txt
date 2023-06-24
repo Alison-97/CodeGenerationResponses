@@ -1,0 +1,72 @@
+using System;
+using System.Collections.Generic;
+
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        long sum = 0;
+        List<int> digits = new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+
+        PermutePandigital(digits, 0, ref sum);
+
+        Console.WriteLine("Sum of pandigital numbers: " + sum);
+    }
+
+    public static void PermutePandigital(List<int> digits, int start, ref long sum)
+    {
+        if (start == digits.Count - 1)
+        {
+            // Check if the pandigital number has the desired property
+            if (CheckDivisibilityProperty(digits))
+            {
+                long number = GetNumberFromDigits(digits);
+                sum += number;
+            }
+        }
+        else
+        {
+            for (int i = start; i < digits.Count; i++)
+            {
+                // Swap the current digit with the start digit
+                int temp = digits[start];
+                digits[start] = digits[i];
+                digits[i] = temp;
+
+                // Recursively permute the remaining digits
+                PermutePandigital(digits, start + 1, ref sum);
+
+                // Restore the swapped digits
+                temp = digits[start];
+                digits[start] = digits[i];
+                digits[i] = temp;
+            }
+        }
+    }
+
+    public static bool CheckDivisibilityProperty(List<int> digits)
+    {
+        int[] divisors = { 2, 3, 5, 7, 11, 13, 17 };
+        for (int i = 1; i <= 7; i++)
+        {
+            int num = digits[i] * 100 + digits[i + 1] * 10 + digits[i + 2];
+            if (num % divisors[i - 1] != 0)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static long GetNumberFromDigits(List<int> digits)
+    {
+        long number = 0;
+        int power = digits.Count - 1;
+        foreach (int digit in digits)
+        {
+            number += digit * (long)Math.Pow(10, power);
+            power--;
+        }
+        return number;
+    }
+}

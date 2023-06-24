@@ -1,0 +1,58 @@
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Initialize a dictionary to store the number of solutions for each perimeter
+        Dictionary<int, int> solutions = new Dictionary<int, int>();
+
+        // Loop through all possible values of a, b, c from 1 to 1000
+        for (int a = 1; a <= 1000; a++)
+        {
+            for (int b = a; b <= 1000; b++)
+            {
+                for (int c = b; c <= 1000; c++)
+                {
+                    // Check if a, b, c form a right angle triangle
+                    if (a * a + b * b == c * c)
+                    {
+                        // Calculate the perimeter
+                        int p = a + b + c;
+
+                        // Check if the perimeter is within the limit
+                        if (p <= 1000)
+                        {
+                            // Increment the number of solutions for this perimeter
+                            if (solutions.ContainsKey(p))
+                            {
+                                solutions[p]++;
+                            }
+                            else
+                            {
+                                solutions.Add(p, 1);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // Find the maximum number of solutions and the corresponding perimeter
+        int maxSolutions = 0;
+        int maxPerimeter = 0;
+
+        foreach (var pair in solutions)
+        {
+            if (pair.Value > maxSolutions)
+            {
+                maxSolutions = pair.Value;
+                maxPerimeter = pair.Key;
+            }
+        }
+
+        // Print the answer
+        Console.WriteLine("The maximum number of solutions is {0} for p = {1}", maxSolutions, maxPerimeter);
+    }
+}

@@ -1,0 +1,107 @@
+Here is a possible code to find the largest n-digit pandigital prime that exists in C#:
+
+```csharp
+using System;
+using System.Collections.Generic;
+
+class Solution {
+
+  // Define a method to check if a number is prime
+  static bool IsPrime(long n) {
+    // Check if n is less than 2 or even
+    if (n < 2 || (n > 2 && n % 2 == 0)) {
+      // Return false as n is not prime
+      return false;
+    }
+    // Loop from 3 to the square root of n with a step of 2
+    for (long i = 3; i * i <= n; i += 2) {
+      // Check if n is divisible by i
+      if (n % i == 0) {
+        // Return false as n is not prime
+        return false;
+      }
+    }
+    // Return true as n is prime
+    return true;
+  }
+
+  // Define a method to check if a number is pandigital
+  static bool IsPandigital(long n) {
+    // Convert the number to a string
+    string s = n.ToString();
+    // Get the length of the string
+    int len = s.Length;
+    // Create a hash set to store the digits
+    HashSet<char> digits = new HashSet<char>();
+    // Loop through each character of the string
+    foreach (char c in s) {
+      // Check if the character is not a digit from 1 to len or already seen
+      if (c < '1' || c > '0' + len || digits.Contains(c)) {
+        // Return false as n is not pandigital
+        return false;
+      }
+      // Add the character to the hash set
+      digits.Add(c);
+    }
+    // Return true as n is pandigital
+    return true;
+  }
+
+  // Define a method to find the largest n-digit pandigital prime that exists
+  static long LargestPandigitalPrime(int n) {
+    // Initialize the largest pandigital prime to -1
+    long largest = -1;
+    // Check if n is between 1 and 9 inclusive
+    if (n >= 1 && n <= 9) {
+      // Create a list of digits from 1 to n
+      List<int> digits = new List<int>();
+      for (int i = 1; i <= n; i++) {
+        digits.Add(i);
+      }
+      // Loop until there are no more permutations of the digits
+      while (true) {
+        // Convert the list of digits to a long number
+        long num = 0;
+        foreach (int d in digits) {
+          num = num * 10 + d;
+        }
+        // Check if the number is prime and larger than the current largest
+        if (IsPrime(num) && num > largest) {
+          // Update the largest pandigital prime
+          largest = num;
+        }
+        // Find the next lexicographic permutation of the digits using an algorithm similar to std::next_permutation in C++
+        int k = -1;
+        int l = -1;
+        for (int i = digits.Count - 2; i >= 0; i--) {
+          if (digits[i] < digits[i + 1]) {
+            k = i;
+            break;
+          }
+        }
+        if (k == -1) {
+          break;
+        }
+        for (int i = digits.Count - 1; i > k; i--) {
+          if (digits[i] > digits[k]) {
+            l = i;
+            break;
+          }
+        }
+        int temp = digits[k];
+        digits[k] = digits[l];
+        digits[l] = temp;
+        digits.Reverse(k + 1, digits.Count - k - 1);
+      }
+    }
+    // Return the largest pandigital prime or -1 if none exists
+    return largest;
+  }
+
+  static void Main(string[] args) {
+    // Test the method with an example
+    int n = 4;
+    Console.WriteLine($"The largest {n}-digit pandigital prime that exists is {LargestPandigitalPrime(n)}");
+  }
+}
+```

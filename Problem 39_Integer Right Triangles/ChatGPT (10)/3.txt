@@ -1,0 +1,35 @@
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int maxSolutions = 0;
+        int optimalP = 0;
+
+        for (int p = 1; p <= 1000; p++)
+        {
+            int solutionsCount = 0;
+
+            for (int a = 1; a < p / 2; a++)
+            {
+                for (int b = a; b < p / 2; b++)
+                {
+                    int c = p - a - b;
+                    if (a * a + b * b == c * c)
+                    {
+                        solutionsCount++;
+                    }
+                }
+            }
+
+            if (solutionsCount > maxSolutions)
+            {
+                maxSolutions = solutionsCount;
+                optimalP = p;
+            }
+        }
+
+        Console.WriteLine("The value of p <= 1000 that maximizes the number of solutions is: " + optimalP);
+    }
+}

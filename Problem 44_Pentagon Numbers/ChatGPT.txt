@@ -1,0 +1,46 @@
+using System;
+
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        int limit = 10000; // Adjust the limit as needed to find the desired pair
+
+        int minimumDifference = int.MaxValue;
+        int result = 0;
+
+        for (int j = 1; j < limit; j++)
+        {
+            for (int k = j + 1; k < limit; k++)
+            {
+                int pentagonalJ = GetPentagonalNumber(j);
+                int pentagonalK = GetPentagonalNumber(k);
+
+                int sum = pentagonalJ + pentagonalK;
+                int difference = Math.Abs(pentagonalK - pentagonalJ);
+
+                if (IsPentagonalNumber(sum) && IsPentagonalNumber(difference))
+                {
+                    if (difference < minimumDifference)
+                    {
+                        minimumDifference = difference;
+                        result = difference;
+                    }
+                }
+            }
+        }
+
+        Console.WriteLine("The minimum difference (D) is: " + result);
+    }
+
+    public static int GetPentagonalNumber(int n)
+    {
+        return n * (3 * n - 1) / 2;
+    }
+
+    public static bool IsPentagonalNumber(int number)
+    {
+        double penTest = (Math.Sqrt(24 * number + 1) + 1) / 6;
+        return penTest == (int)penTest;
+    }
+}

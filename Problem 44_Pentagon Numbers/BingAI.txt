@@ -1,0 +1,51 @@
+using System;
+
+class Program
+{
+    // A method that returns the nth pentagonal number
+    static int Pentagonal(int n)
+    {
+        return n * (3 * n - 1) / 2;
+    }
+
+    // A method that checks if a number is pentagonal
+    static bool IsPentagonal(int x)
+    {
+        // Solve the quadratic equation 3n^2 - n - 2x = 0 for n
+        double n = (1 + Math.Sqrt(1 + 24 * x)) / 6;
+        // Check if n is a positive integer
+        return n > 0 && n == (int)n;
+    }
+
+    // A method that returns the minimum difference D for the pair of pentagonal numbers with the property
+    static int GetMinDifference()
+    {
+        // Initialize D as a large number
+        int D = int.MaxValue;
+        // Loop through all possible values of n
+        for (int n = 2; ; n++)
+        {
+            // Generate the pentagonal number Pn
+            int Pn = Pentagonal(n);
+            // Loop through all smaller values of m
+            for (int m = n - 1; m >= 1; m--)
+            {
+                // Generate the pentagonal number Pm
+                int Pm = Pentagonal(m);
+                // Check if Pn + Pm and Pn - Pm are both pentagonal
+                if (IsPentagonal(Pn + Pm) && IsPentagonal(Pn - Pm))
+                {
+                    // Update D if it is smaller than the current difference
+                    D = Math.Min(D, Pn - Pm);
+                    // Return D as the answer
+                    return D;
+                }
+            }
+        }
+    }
+
+    static void Main(string[] args)
+    {
+        Console.WriteLine(GetMinDifference());
+    }
+}

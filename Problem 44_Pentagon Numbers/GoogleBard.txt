@@ -1,0 +1,31 @@
+using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        int minDiff = int.MaxValue;
+        int[] minPair = null;
+        for (int i = 1; i < 100; i++)
+        {
+            for (int j = i + 1; j < 100; j++)
+            {
+                if (IsPentagonal(i) && IsPentagonal(j) && IsPentagonal(i + j) && IsPentagonal(j - i))
+                {
+                    int diff = abs(j - i);
+                    if (diff < minDiff)
+                    {
+                        minDiff = diff;
+                        minPair = (i, j);
+                    }
+                }
+            }
+        }
+        Console.WriteLine(minPair, minDiff);
+    }
+
+    static bool IsPentagonal(int n)
+    {
+        return (n * (3 * n - 1)) % 6 == 0;
+    }
+}

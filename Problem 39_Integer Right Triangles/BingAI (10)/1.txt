@@ -1,0 +1,93 @@
+using System;
+using System.Collections.Generic;
+
+namespace TriangleProblem
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // A list to store all primitive Pythagorean triples
+            List<int> primitivePerimeters = new List<int>();
+
+            // Generate all primitive Pythagorean triples with perimeter less than 1000 using Euclid's formula
+            for (int m = 2; m * m < 1000; m++)
+            {
+                for (int n = 1; n < m; n++)
+                {
+                    // Check if m and n are coprime and not both odd
+                    if (GCD(m, n) == 1 && (m - n) % 2 == 1)
+                    {
+                        // Calculate the sides and perimeter of the triple
+                        int a = m * m - n * n;
+                        int b = 2 * m * n;
+                        int c = m * m + n * n;
+                        int p = a + b + c;
+
+                        // Add the perimeter to the list
+                        primitivePerimeters.Add(p);
+                    }
+                }
+            }
+
+            // A variable to store the maximum number of solutions
+            int maxSolutions = 0;
+
+            // A variable to store the value of p that gives the maximum number of solutions
+            int maxP = 0;
+
+            // Loop through all even values of p from 12 to 1000
+            for (int p = 12; p <= 1000; p += 2)
+            {
+                // A variable to store the number of solutions for the current p
+                int solutions = 0;
+
+                // Check if p is divisible by any primitive perimeter
+                bool isDivisible = false;
+                foreach (int q in primitivePerimeters)
+                {
+                    if (p % q == 0)
+                    {
+                        isDivisible = true;
+                        break;
+                    }
+                }
+
+                // If p is not divisible by any primitive perimeter, skip it
+                if (!isDivisible) continue;
+
+                // Loop through all possible values of a from 1 to p/2
+                for (int a = 1; a < p / 2; a++)
+                {
+                    // Calculate b using the equation p^2 = 2(a^2 + b^2) + 2ab
+                    double b = (double)(p * p - 2 * a * a) / (double)(2 * (p - a));
+
+                    // Check if b is an integer
+                    if (b == (int)b)
+                    {
+                        // Increment the number of solutions
+                        solutions++;
+                    }
+                }
+
+                // Check if the number of solutions is greater than the maximum so far
+                if (solutions > maxSolutions)
+                {
+                    // Update the maximum number of solutions and the corresponding value of p
+                    maxSolutions = solutions;
+                    maxP = p;
+                }
+            }
+
+            // Print the answer
+            Console.WriteLine("The value of p that maximizes the number of solutions is {0} with {1} solutions.", maxP, maxSolutions);
+        }
+
+        // A helper method to find the greatest common divisor of two integers using Euclid's algorithm
+        static int GCD(int a, int b)
+        {
+            if (b == 0) return a;
+            return GCD(b, a % b);
+        }
+    }
+}

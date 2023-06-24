@@ -1,0 +1,42 @@
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int maxSolutions = 0;
+        int maxP = 0;
+
+        for (int p = 1; p <= 1000; p++)
+        {
+            int numSolutions = CountRightAngleTriangles(p);
+            if (numSolutions > maxSolutions)
+            {
+                maxSolutions = numSolutions;
+                maxP = p;
+            }
+        }
+
+        Console.WriteLine("The value of p <= 1000 with the maximum number of solutions is: " + maxP);
+    }
+
+    static int CountRightAngleTriangles(int p)
+    {
+        int count = 0;
+
+        for (int a = 1; a < p; a++)
+        {
+            for (int b = a; b < p; b++)
+            {
+                int c = p - a - b;
+                if (c <= b) // Ensuring c is not less than or equal to b
+                    break;
+
+                if (a * a + b * b == c * c) // Checking if it is a right angle triangle
+                    count++;
+            }
+        }
+
+        return count;
+    }
+}

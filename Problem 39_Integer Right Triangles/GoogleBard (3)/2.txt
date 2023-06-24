@@ -1,0 +1,42 @@
+using System;
+
+public class Problem39
+{
+    public static int Solve()
+    {
+        int[] answers = new int[1001];
+        int max = 0;
+        int maxP = 0;
+        for (int a = 1; a <= 1000; a++)
+        {
+            for (int b = a; b <= 1000; b++)
+            {
+                int c2 = a * a + b * b;
+                int c = int(Math.Sqrt(c2));
+                if (c <= 1000 && isSquare(c2))
+                {
+                    int p = a + b + c;
+                    answers[p]++;
+                    if (answers[p] > max)
+                    {
+                        max = answers[p];
+                        maxP = p;
+                    }
+                }
+            }
+        }
+        return maxP;
+    }
+
+    private static bool isSquare(int n)
+    {
+        int sqrt = (int)Math.Sqrt(n);
+        return sqrt * sqrt == n;
+    }
+
+    public static void Main()
+    {
+        int maxP = Solve();
+        Console.WriteLine("The maximum number of solutions is for p = {0}, with {1} solutions.", maxP, answers[maxP]);
+    }
+}

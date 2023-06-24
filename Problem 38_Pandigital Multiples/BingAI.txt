@@ -1,0 +1,60 @@
+using System;
+using System.Collections.Generic;
+
+class Solution {
+
+  // Define a method to check if a string is 1 to 9 pandigital
+  static bool IsPandigital(string s) {
+    // Check if the string has 9 characters
+    if (s.Length != 9) {
+      // Return false as s is not pandigital
+      return false;
+    }
+    // Create a hash set to store the digits
+    HashSet<char> digits = new HashSet<char>();
+    // Loop through each character of the string
+    foreach (char c in s) {
+      // Check if the character is not a digit from 1 to 9 or already seen
+      if (c < '1' || c > '9' || digits.Contains(c)) {
+        // Return false as s is not pandigital
+        return false;
+      }
+      // Add the character to the hash set
+      digits.Add(c);
+    }
+    // Return true as s is pandigital
+    return true;
+  }
+
+  // Define a method to find the largest pandigital number that can be formed as the concatenated product of an integer with (1,2,...,n) where n > 1
+  static int LargestPandigitalConcatenatedProduct() {
+    // Initialize the largest pandigital number to 0
+    int largest = 0;
+    // Loop through all possible values of the integer from 1 to 9999
+    for (int i = 1; i <= 9999; i++) {
+      // Initialize an empty string to store the concatenated product
+      string product = "";
+      // Initialize n to 1
+      int n = 1;
+      // Loop until the product has at least 9 digits
+      while (product.Length < 9) {
+        // Multiply i by n and append it to the product
+        product += (i * n).ToString();
+        // Increment n by 1
+        n++;
+      }
+      // Check if the product is pandigital and larger than the current largest
+      if (IsPandigital(product) && int.Parse(product) > largest) {
+        // Update the largest pandigital number
+        largest = int.Parse(product);
+      }
+    }
+    // Return the largest pandigital number as the answer
+    return largest;
+  }
+
+  static void Main(string[] args) {
+    // Test the method with an example
+    Console.WriteLine($"The largest pandigital number that can be formed as the concatenated product of an integer with (1,2,...,n) where n > 1 is {LargestPandigitalConcatenatedProduct()}");
+  }
+}

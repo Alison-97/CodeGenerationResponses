@@ -1,0 +1,30 @@
+using System;
+
+public class RightAngleTriangle {
+
+    public static int MaxSolutions(int perimeter) {
+        int maxSolutions = 0;
+        for (int a = 1; a <= perimeter / 2; a++) {
+            for (int b = a + 1; b <= perimeter - a; b++) {
+                int c = perimeter - a - b;
+                if (a * a + b * b == c * c) {
+                    maxSolutions = Math.Max(maxSolutions, 1);
+                }
+            }
+        }
+        return maxSolutions;
+    }
+
+    public static void Main() {
+        int maxPerimeter = 0;
+        int maxSolutions = 0;
+        for (int perimeter = 1; perimeter <= 1000; perimeter++) {
+            int solutions = MaxSolutions(perimeter);
+            if (solutions > maxSolutions) {
+                maxPerimeter = perimeter;
+                maxSolutions = solutions;
+            }
+        }
+        Console.WriteLine("The maximum number of solutions is {0} for perimeter {1}", maxSolutions, maxPerimeter);
+    }
+}

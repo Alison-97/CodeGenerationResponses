@@ -1,0 +1,25 @@
+using System;
+
+public class PythagoreanTriples {
+
+    public static void Main(string[] args) {
+        int maxSolutions = 0;
+        int maxPerimeter = 0;
+        for (int perimeter = 3; perimeter <= 1000; perimeter++) {
+            int solutions = 0;
+            for (int a = 1; a < perimeter; a++) {
+                for (int b = a + 1; b < perimeter; b++) {
+                    int c = perimeter - a - b;
+                    if (a * a + b * b == c * c) {
+                        solutions++;
+                    }
+                }
+            }
+            if (solutions > maxSolutions) {
+                maxSolutions = solutions;
+                maxPerimeter = perimeter;
+            }
+        }
+        Console.WriteLine("The maximum number of solutions is {0} for perimeter {1}", maxSolutions, maxPerimeter);
+    }
+}

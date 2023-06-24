@@ -1,0 +1,32 @@
+using System;
+
+public class Program
+{
+    static void Main(string[] args)
+    {
+        int maxSolutions = 0;
+        int maxPerimeter = 0;
+
+        for (int p = 2; p <= 1000; p++)
+        {
+            int solutions = 0;
+            for (int a = 1; a < p; a++)
+            {
+                int b = (p * (p - 2 * a)) / (2 * (p - a));
+                int c = Math.Sqrt(a * a + b * b);
+                if (c * c == a * a + b * b && c <= p)
+                {
+                    solutions++;
+                }
+            }
+
+            if (solutions > maxSolutions)
+            {
+                maxSolutions = solutions;
+                maxPerimeter = p;
+            }
+        }
+
+        Console.WriteLine("The maximum number of solutions is {0} for perimeter {1}.", maxSolutions, maxPerimeter);
+    }
+}

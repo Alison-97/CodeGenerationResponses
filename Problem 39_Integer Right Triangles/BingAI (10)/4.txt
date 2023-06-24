@@ -1,0 +1,55 @@
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    // A method to check if three sides form a right triangle
+    static bool IsRightTriangle(int a, int b, int c)
+    {
+        return (a * a + b * b == c * c) || (a * a + c * c == b * b) || (b * b + c * c == a * a);
+    }
+
+    // A method to find the number of solutions for a given perimeter
+    static int CountSolutions(int p)
+    {
+        int count = 0;
+        // Loop through all possible values of a and b
+        for (int a = 1; a < p / 3; a++)
+        {
+            for (int b = a; b < (p - a) / 2; b++)
+            {
+                // Calculate the value of c
+                int c = p - a - b;
+                // Check if they form a right triangle
+                if (IsRightTriangle(a, b, c))
+                {
+                    // Increment the count
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+    static void Main(string[] args)
+    {
+        // Initialize the maximum number of solutions and the corresponding perimeter
+        int maxSolutions = 0;
+        int maxPerimeter = 0;
+        // Loop through all possible values of perimeter from 1 to 1000
+        for (int p = 1; p <= 1000; p++)
+        {
+            // Find the number of solutions for this perimeter
+            int solutions = CountSolutions(p);
+            // Check if it is greater than the current maximum
+            if (solutions > maxSolutions)
+            {
+                // Update the maximum number of solutions and the corresponding perimeter
+                maxSolutions = solutions;
+                maxPerimeter = p;
+            }
+        }
+        // Print the result
+        Console.WriteLine("The value of p <= 1000 that maximises the number of solutions is {0} with {1} solutions.", maxPerimeter, maxSolutions);
+    }
+}

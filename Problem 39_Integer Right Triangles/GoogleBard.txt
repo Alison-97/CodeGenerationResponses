@@ -1,0 +1,51 @@
+using System;
+
+public class Program
+{
+    public static void Main()
+    {
+        // Create a dictionary to store the number of solutions for each perimeter
+        Dictionary<int, int> solutions = new Dictionary<int, int>();
+
+        // Loop through all the perimeters from 1 to 1000
+        for (int p = 1; p <= 1000; p++)
+        {
+            // Initialize the number of solutions to 0
+            int numSolutions = 0;
+
+            // Loop through all the possible combinations of a, b, and c
+            for (int a = 1; a < p; a++)
+            {
+                for (int b = a + 1; b < p; b++)
+                {
+                    int c = p - a - b;
+
+                    // Check if a, b, and c form a right triangle
+                    if (a * a + b * b == c * c)
+                    {
+                        // Increment the number of solutions
+                        numSolutions++;
+                    }
+                }
+            }
+
+            // Add the number of solutions to the dictionary
+            solutions.Add(p, numSolutions);
+        }
+
+        // Find the maximum number of solutions
+        int maxNumSolutions = 0;
+        int maxPerimeter = 0;
+        foreach (var pair in solutions)
+        {
+            if (pair.Value > maxNumSolutions)
+            {
+                maxNumSolutions = pair.Value;
+                maxPerimeter = pair.Key;
+            }
+        }
+
+        // Print the maximum perimeter
+        Console.WriteLine("The maximum perimeter is: " + maxPerimeter);
+    }
+}

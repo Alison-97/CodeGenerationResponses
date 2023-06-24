@@ -1,0 +1,51 @@
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main()
+    {
+        // Initialize a dictionary to store the number of solutions for each perimeter
+        Dictionary<int, int> solutions = new Dictionary<int, int>();
+        
+        // Loop through all possible values of a, b, and c
+        for (int a = 1; a <= 1000; a++)
+        {
+            for (int b = a; b <= 1000; b++)
+            {
+                // Use Pythagoras' theorem to find c
+                double c = Math.Sqrt(a * a + b * b);
+                
+                // Check if c is an integer and the perimeter is less than or equal to 1000
+                if (c == (int)c && a + b + c <= 1000)
+                {
+                    // Add the perimeter to the dictionary or increment its count
+                    int p = a + b + (int)c;
+                    if (solutions.ContainsKey(p))
+                    {
+                        solutions[p]++;
+                    }
+                    else
+                    {
+                        solutions.Add(p, 1);
+                    }
+                }
+            }
+        }
+        
+        // Find the maximum number of solutions and the corresponding perimeter
+        int maxSolutions = 0;
+        int maxPerimeter = 0;
+        foreach (var pair in solutions)
+        {
+            if (pair.Value > maxSolutions)
+            {
+                maxSolutions = pair.Value;
+                maxPerimeter = pair.Key;
+            }
+        }
+        
+        // Print the result
+        Console.WriteLine("The maximum number of solutions is {0} for p = {1}", maxSolutions, maxPerimeter);
+    }
+}

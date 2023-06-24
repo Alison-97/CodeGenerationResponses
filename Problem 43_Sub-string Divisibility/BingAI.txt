@@ -1,0 +1,92 @@
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    // A method that returns a list of all 0 to 9 pandigital numbers
+    static List<long> GeneratePandigital()
+    {
+        var pandigital = new List<long>();
+        var digits = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+        // Use a recursive helper method to generate permutations
+        GeneratePermutations(digits, 0, pandigital);
+        return pandigital;
+    }
+
+    // A helper method that generates permutations of an array of digits
+    static void GeneratePermutations(int[] digits, int index, List<long> pandigital)
+    {
+        // If index reaches the end of the array, convert the array to a long and add it to the list
+        if (index == digits.Length)
+        {
+            long number = 0;
+            for (int i = 0; i < digits.Length; i++)
+            {
+                number = number * 10 + digits[i];
+            }
+            pandigital.Add(number);
+        }
+        else
+        {
+            // For each position in the array, swap it with the current index and recurse
+            for (int i = index; i < digits.Length; i++)
+            {
+                Swap(digits, index, i);
+                GeneratePermutations(digits, index + 1, pandigital);
+                Swap(digits, index, i); // Swap back to restore the original array
+            }
+        }
+    }
+
+    // A helper method that swaps two elements in an array
+    static void Swap(int[] digits, int i, int j)
+    {
+        int temp = digits[i];
+        digits[i] = digits[j];
+        digits[j] = temp;
+    }
+
+    // A method that checks if a number has the sub-string divisibility property
+    static bool HasProperty(long n)
+    {
+        // An array of divisors for each sub-string
+        var divisors = new int[] { 2, 3, 5, 7, 11, 13, 17 };
+        // Convert the number to a string
+        var s = n.ToString();
+        // For each sub-string of length 3 starting from index 1
+        for (int i = 1; i <= 7; i++)
+        {
+            // Extract the sub-string and convert it to an integer
+            int sub = int.Parse(s.Substring(i, 3));
+            // Check if it is divisible by the corresponding divisor
+            if (sub % divisors[i - 1] != 0)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // A method that returns the sum of all pandigital numbers with the property
+    static long GetSum()
+    {
+        long sum = 0;
+        // Generate all pandigital numbers
+        var pandigital = GeneratePandigital();
+        // For each pandigital number
+        foreach (var n in pandigital)
+        {
+            // Check if it has the property and add it to the sum if yes
+            if (HasProperty(n))
+            {
+                sum += n;
+            }
+        }
+        return sum;
+    }
+
+    static void Main(string[] args)
+    {
+        Console.WriteLine(GetSum());
+    }
+}
