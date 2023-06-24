@@ -1,0 +1,27 @@
+using System;
+
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        int n = 800800^800800;
+        int count = 0;
+
+        for (int p = 2; p <= Math.Sqrt(n); p++)
+        {
+            int power = 0;
+            while (n % p == 0)
+            {
+                power++;
+                n /= p;
+            }
+
+            if (power > 1)
+            {
+                count += power * (power - 1) / 2;
+            }
+        }
+
+        Console.WriteLine("C(800800^800800) = {0}", count);
+    }
+}

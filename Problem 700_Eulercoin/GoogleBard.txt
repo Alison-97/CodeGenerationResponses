@@ -1,0 +1,29 @@
+using System;
+
+public class Eulercoin {
+
+    public static long Eulercoin(int n) {
+        return (15041707 * n) % 4503599627370517;
+    }
+
+    public static void Main() {
+        // Initialize the sum of all Eulercoins.
+        long sum = 0;
+
+        // Iterate over all Eulercoins.
+        for (int i = 1; i <= 1000000; i++) {
+            long e = Eulercoin(i);
+
+            // If the current Eulercoin is strictly smaller than all previously found Eulercoins, add it to the sum.
+            if (e < sum) {
+                sum += e;
+            } else {
+                // Break out of the loop since there are no more Eulercoins smaller than the current one.
+                break;
+            }
+        }
+
+        // Print the sum of all Eulercoins.
+        Console.WriteLine(sum);
+    }
+}

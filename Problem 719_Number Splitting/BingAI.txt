@@ -1,0 +1,71 @@
+using System;
+using System.Collections.Generic;
+
+class Solution {
+
+  // Define a method to check if a number is a perfect square
+  static bool IsPerfectSquare(long n) {
+    // Find the square root of n
+    long root = (long)Math.Sqrt(n);
+    // Check if the square of the root is equal to n
+    return root * root == n;
+  }
+
+  // Define a method to check if a number is an S-number
+  static bool IsSNumber(long n) {
+    // Convert the number to a string
+    string s = n.ToString();
+    // Get the length of the string
+    int len = s.Length;
+    // Loop through all possible ways to split the string into two or more parts
+    for (int i = 1; i < (1 << (len - 1)); i++) {
+      // Initialize the sum of the parts
+      long sum = 0;
+      // Initialize the start index of the current part
+      int start = 0;
+      // Loop through all the bits of i
+      for (int j = 0; j < len - 1; j++) {
+        // If the j-th bit is set, then end the current part and add it to the sum
+        if ((i & (1 << j)) > 0) {
+          // Parse the substring from start to j+1 as a long
+          long part = long.Parse(s.Substring(start, j + 1 - start));
+          // Add the part to the sum
+          sum += part;
+          // Update the start index of the next part
+          start = j + 1;
+        }
+      }
+      // Add the last part to the sum
+      sum += long.Parse(s.Substring(start));
+      // Check if the sum is equal to the square root of n
+      if (sum == Math.Sqrt(n)) {
+        // Return true as n is an S-number
+        return true;
+      }
+    }
+    // Return false as n is not an S-number
+    return false;
+  }
+
+  // Define a method to find T(N)
+  static long T(long N) {
+    // Initialize the sum of all S-numbers
+    long sum = 0;
+    // Loop through all numbers from 1 to N
+    for (long i = 1; i <= N; i++) {
+      // Check if i is a perfect square and an S-number
+      if (IsPerfectSquare(i) && IsSNumber(i)) {
+        // Add i to the sum
+        sum += i;
+      }
+    }
+    // Return the sum as T(N)
+    return sum;
+  }
+
+  static void Main(string[] args) {
+    // Test the method with an example
+    long N = (long)Math.Pow(10, 12);
+    Console.WriteLine($"T({N}) = {T(N)}");
+  }
+}

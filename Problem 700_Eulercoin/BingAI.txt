@@ -1,0 +1,48 @@
+using System;
+using System.Numerics;
+
+class Eulercoin
+{
+    // Define the constants
+    const long a = 1504170715041707;
+    const long m = 4503599627370517;
+
+    // Define a method to find the nth term of the sequence
+    static long Term(long n)
+    {
+        return (a * n) % m;
+    }
+
+    // Define a method to find the sum of all Eulercoins
+    static BigInteger Sum()
+    {
+        // Initialize the sum and the minimum term
+        BigInteger sum = 0;
+        long min = m;
+
+        // Loop through the sequence until the term is zero
+        for (long n = 1; ; n++)
+        {
+            long t = Term(n);
+
+            // If the term is zero, break the loop
+            if (t == 0) break;
+
+            // If the term is smaller than the minimum, update the minimum and add it to the sum
+            if (t < min)
+            {
+                min = t;
+                sum += t;
+            }
+        }
+
+        // Return the sum
+        return sum;
+    }
+
+    // Main method to test the code
+    static void Main()
+    {
+        Console.WriteLine(Sum());
+    }
+}

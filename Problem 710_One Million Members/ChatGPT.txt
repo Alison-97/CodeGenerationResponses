@@ -1,0 +1,45 @@
+using System;
+
+public class Program
+{
+    public static void Main()
+    {
+        int n = 43;
+        while (true)
+        {
+            int count = CountTwoPals(n);
+            if (count % 1000000 == 0)
+            {
+                Console.WriteLine("The least value of n > 42 such that t(n) is divisible by one million: " + n);
+                break;
+            }
+            n++;
+        }
+    }
+
+    public static int CountTwoPals(int n)
+    {
+        int[] memo = new int[n + 1];
+        return CountTwoPalsRecursive(n, memo);
+    }
+
+    public static int CountTwoPalsRecursive(int n, int[] memo)
+    {
+        if (n == 0)
+            return 1;
+        if (n < 0)
+            return 0;
+
+        if (memo[n] != 0)
+            return memo[n];
+
+        int count = 0;
+        for (int i = 1; i <= 6; i++)
+        {
+            count += CountTwoPalsRecursive(n - i, memo);
+        }
+
+        memo[n] = count;
+        return count;
+    }
+}

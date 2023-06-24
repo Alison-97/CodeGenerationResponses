@@ -1,0 +1,86 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+class Program
+{
+    // A method to check if a tuple is palindromic
+    static bool IsPalindrome(int[] tuple)
+    {
+        int left = 0;
+        int right = tuple.Length - 1;
+        while (left < right)
+        {
+            if (tuple[left] != tuple[right])
+                return false;
+            left++;
+            right--;
+        }
+        return true;
+    }
+
+    // A method to check if a tuple contains at least one 2
+    static bool HasTwo(int[] tuple)
+    {
+        foreach (int element in tuple)
+        {
+            if (element == 2)
+                return true;
+        }
+        return false;
+    }
+
+    // A method to generate all possible tuples that sum to n
+    static List<int[]> GenerateTuples(int n)
+    {
+        List<int[]> tuples = new List<int[]>();
+        // Base case: a single element tuple
+        if (n > 0)
+            tuples.Add(new int[] { n });
+        // Recursive case: generate all tuples that sum to n - i for i from 1 to n / 2
+        for (int i = 1; i <= n / 2; i++)
+        {
+            List<int[]> subTuples = GenerateTuples(n - i);
+            // Add i to the beginning of each subtuple
+            foreach (int[] subTuple in subTuples)
+            {
+                int[] tuple = new int[subTuple.Length + 1];
+                tuple[0] = i;
+                Array.Copy(subTuple, 0, tuple, 1, subTuple.Length);
+                tuples.Add(tuple);
+            }
+        }
+        return tuples;
+    }
+
+    // A method to count the number of twopals that sum to n
+    static int CountTwopals(int n)
+    {
+        int count = 0;
+        List<int[]> tuples = GenerateTuples(n);
+        foreach (int[] tuple in tuples)
+        {
+            if (IsPalindrome(tuple) && HasTwo(tuple))
+                count++;
+        }
+        return count;
+    }
+
+    // A method to find the least value of n > 42 such that t(n) is divisible by one million
+    static int FindAnswer()
+    {
+        int n = 43;
+        while (true)
+        {
+            int t = CountTwopals(n);
+            if (t % 1000000 == 0)
+                return n;
+            n++;
+        }
+    }
+
+    static void Main(string[] args)
+    {
+        Console.WriteLine("The answer to the ultimatest question of life, the universe, and everything is {0}.", FindAnswer());
+    }
+}

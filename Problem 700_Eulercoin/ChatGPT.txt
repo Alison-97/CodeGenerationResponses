@@ -1,0 +1,37 @@
+using System;
+using System.Collections.Generic;
+
+public class Eulercoins
+{
+    public static long GetSumOfEulercoins()
+    {
+        long sum = 0;
+        long previousEulercoin = 0;
+        long currentEulercoin = 0;
+        HashSet<long> eulercoins = new HashSet<long>();
+
+        for (long n = 1; ; n++)
+        {
+            currentEulercoin = (1504170715041707 * n) % 4503599627370517;
+
+            if (currentEulercoin < previousEulercoin || eulercoins.Contains(currentEulercoin))
+                continue;
+
+            eulercoins.Add(currentEulercoin);
+            sum += currentEulercoin;
+
+            previousEulercoin = currentEulercoin;
+
+            if (eulercoins.Count == 2)
+                break;
+        }
+
+        return sum;
+    }
+
+    public static void Main(string[] args)
+    {
+        long sumOfEulercoins = GetSumOfEulercoins();
+        Console.WriteLine("Sum of Eulercoins: " + sumOfEulercoins);
+    }
+}

@@ -1,0 +1,48 @@
+using System;
+
+namespace TwoPal
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] twoPals = new int[1000001];
+            int count = 0;
+
+            for (int i = 1; i <= 1000000; i++)
+            {
+                int sum = 0;
+                int temp = i;
+
+                while (temp > 0)
+                {
+                    sum += temp % 10;
+                    temp /= 10;
+                }
+
+                if (sum % 2 == 0)
+                {
+                    twoPals[i] = count;
+                    count++;
+                }
+                else
+                {
+                    twoPals[i] = count - 1;
+                }
+            }
+
+            int n = 42;
+
+            while (true)
+            {
+                if (twoPals[n] % 1000000 == 0)
+                {
+                    Console.WriteLine(n);
+                    break;
+                }
+
+                n++;
+            }
+        }
+    }
+}

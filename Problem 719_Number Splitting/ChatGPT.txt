@@ -1,0 +1,47 @@
+using System;
+
+public class SNumberCalculator
+{
+    public static long CalculateSNumberSum(long N)
+    {
+        long sum = 0;
+        long limit = (long)Math.Sqrt(N);
+        
+        for (long i = 1; i <= limit; i++)
+        {
+            long square = i * i;
+            
+            if (IsSNumber(square))
+                sum += square;
+        }
+        
+        return sum;
+    }
+    
+    public static bool IsSNumber(long n)
+    {
+        string nString = n.ToString();
+        
+        for (int i = 1; i < nString.Length; i++)
+        {
+            string leftPart = nString.Substring(0, i);
+            string rightPart = nString.Substring(i);
+            
+            if (Convert.ToDouble(leftPart) + Convert.ToDouble(rightPart) == Math.Sqrt(n))
+                return true;
+        }
+        
+        return false;
+    }
+}
+
+public class Program
+{
+    public static void Main()
+    {
+        long N = (long)Math.Pow(10, 12);
+        long result = SNumberCalculator.CalculateSNumberSum(N);
+        
+        Console.WriteLine("T(10^12) = " + result);
+    }
+}
