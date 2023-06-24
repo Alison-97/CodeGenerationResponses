@@ -1,0 +1,26 @@
+using System;
+
+public class Program
+{
+    public static void Main()
+    {
+        // Create a set to store the distinct terms.
+        Set<int> distinctTerms = new HashSet<int>();
+
+        // Iterate through all the possible values of a and b.
+        for (int a = 2; a <= 100; a++)
+        {
+            for (int b = 2; b <= 100; b++)
+            {
+                // Calculate a^b.
+                int term = (int)Math.Pow(a, b);
+
+                // Add the term to the set of distinct terms.
+                distinctTerms.Add(term);
+            }
+        }
+
+        // Print the number of distinct terms.
+        Console.WriteLine("The number of distinct terms is: " + distinctTerms.Count);
+    }
+}

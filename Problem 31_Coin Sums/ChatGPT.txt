@@ -1,0 +1,30 @@
+using System;
+
+class Program
+{
+    static int CountWaysToMakeChange(int totalAmount, int[] coins)
+    {
+        int[] ways = new int[totalAmount + 1];
+        ways[0] = 1;
+
+        foreach (int coin in coins)
+        {
+            for (int i = coin; i <= totalAmount; i++)
+            {
+                ways[i] += ways[i - coin];
+            }
+        }
+
+        return ways[totalAmount];
+    }
+
+    static void Main()
+    {
+        int totalAmount = 200;
+        int[] coins = { 1, 2, 5, 10, 20, 50, 100, 200 };
+
+        int numWays = CountWaysToMakeChange(totalAmount, coins);
+
+        Console.WriteLine("Number of different ways to make £2: " + numWays);
+    }
+}

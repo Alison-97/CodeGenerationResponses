@@ -1,0 +1,59 @@
+using System;
+using System.Collections.Generic;
+
+class Solution {
+
+  // Define a method to check if a string is 1 through 9 pandigital
+  static bool IsPandigital(string s) {
+    // Check if the string has 9 characters
+    if (s.Length != 9) {
+      // Return false as s is not pandigital
+      return false;
+    }
+    // Create a hash set to store the digits
+    HashSet<char> digits = new HashSet<char>();
+    // Loop through each character of the string
+    foreach (char c in s) {
+      // Check if the character is not a digit from 1 to 9 or already seen
+      if (c < '1' || c > '9' || digits.Contains(c)) {
+        // Return false as s is not pandigital
+        return false;
+      }
+      // Add the character to the hash set
+      digits.Add(c);
+    }
+    // Return true as s is pandigital
+    return true;
+  }
+
+  // Define a method to find the sum of all products whose multiplicand/multiplier/product identity can be written as a 1 through 9 pandigital
+  static int SumOfPandigitalProducts() {
+    // Initialize the sum of all products
+    int sum = 0;
+    // Create a hash set to store the products that are already seen
+    HashSet<int> seen = new HashSet<int>();
+    // Loop through all possible values of the multiplicand from 1 to 9999
+    for (int i = 1; i <= 9999; i++) {
+      // Loop through all possible values of the multiplier from i + 1 to 9999
+      for (int j = i + 1; j <= 9999; j++) {
+        // Calculate the product of i and j
+        int product = i * j;
+        // Convert the multiplicand, multiplier and product to a string
+        string identity = i.ToString() + j.ToString() + product.ToString();
+        // Check if the identity is pandigital and the product is not already seen
+        if (IsPandigital(identity) && !seen.Contains(product)) {
+          // Add the product to the sum and the hash set
+          sum += product;
+          seen.Add(product);
+        }
+      }
+    }
+    // Return the sum as the answer
+    return sum;
+  }
+
+  static void Main(string[] args) {
+    // Test the method with an example
+    Console.WriteLine($"The sum of all products whose multiplicand/multiplier/product identity can be written as a 1 through 9 pandigital is {SumOfPandigitalProducts()}");
+  }
+}

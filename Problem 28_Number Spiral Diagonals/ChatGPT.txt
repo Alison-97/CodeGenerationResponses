@@ -1,0 +1,33 @@
+using System;
+
+class SpiralDiagonalSum
+{
+    static void Main()
+    {
+        int size = 1001;
+        long sum = CalculateDiagonalSum(size);
+        Console.WriteLine("The sum of the numbers on the diagonals in a {0} by {0} spiral is: {1}", size, sum);
+    }
+
+    static long CalculateDiagonalSum(int size)
+    {
+        long sum = 1; // Start with the center number (1x1 spiral)
+
+        int currentValue = 1;
+        int increment = 2; // Increment for each new layer
+
+        for (int i = 1; i <= (size - 1) / 2; i++)
+        {
+            // Calculate the four corners of each layer
+            for (int j = 0; j < 4; j++)
+            {
+                currentValue += increment;
+                sum += currentValue;
+            }
+
+            increment += 2; // Increase the increment for the next layer
+        }
+
+        return sum;
+    }
+}

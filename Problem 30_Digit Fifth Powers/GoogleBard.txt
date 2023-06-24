@@ -1,0 +1,41 @@
+using System;
+
+public class Program
+{
+    public static void Main()
+    {
+        // Create an array to store the sum of fifth powers of digits.
+        int[] sumOfFifthPowers = new int[10];
+        for (int i = 0; i < 10; i++)
+        {
+            sumOfFifthPowers[i] = (int)Math.Pow(i, 5);
+        }
+
+        // Initialize the sum.
+        int sum = 0;
+
+        // Iterate through all the numbers from 1 to 1000000.
+        for (int i = 1; i <= 1000000; i++)
+        {
+            // Check if the number can be written as the sum of fifth powers of its digits.
+            bool isSumOfFifthPowers = true;
+            for (int j = 0; j < i.ToString().Length; j++)
+            {
+                if (sumOfFifthPowers[i.ToString()[j] - '0'] == 0)
+                {
+                    isSumOfFifthPowers = false;
+                    break;
+                }
+            }
+
+            // If the number can be written as the sum of fifth powers of its digits, add it to the sum.
+            if (isSumOfFifthPowers)
+            {
+                sum += i;
+            }
+        }
+
+        // Print the sum.
+        Console.WriteLine("The sum is: " + sum);
+    }
+}

@@ -1,0 +1,33 @@
+using System;
+
+public class Program {
+
+    public static void Main() {
+
+        // Create a list of all the coins in circulation
+        var coins = new List<int> { 1, 2, 5, 10, 20, 50, 100, 200 };
+
+        // Initialize the number of ways to make £2 to 0
+        int numWays = 0;
+
+        // Iterate over all the possible combinations of coins
+        foreach (var combination in Enumerable.Range(0, 1 << coins.Count)) {
+
+            // Calculate the total value of the combination
+            int total = 0;
+            foreach (int coin in coins) {
+                if ((combination & (1 << coin)) != 0) {
+                    total += coin;
+                }
+            }
+
+            // If the total value is £2, increment the number of ways
+            if (total == 200) {
+                numWays++;
+            }
+        }
+
+        // Print the number of ways
+        Console.WriteLine(numWays);
+    }
+}

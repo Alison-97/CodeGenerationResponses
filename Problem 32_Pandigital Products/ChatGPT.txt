@@ -1,0 +1,49 @@
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main()
+    {
+        List<int> products = new List<int>();
+
+        for (int multiplicand = 1; multiplicand < 10000; multiplicand++)
+        {
+            for (int multiplier = 1; multiplier < 10000; multiplier++)
+            {
+                int product = multiplicand * multiplier;
+                string identity = multiplicand.ToString() + multiplier.ToString() + product.ToString();
+                if (identity.Length > 9)
+                    break;
+
+                if (IsPandigital(identity))
+                {
+                    if (!products.Contains(product))
+                        products.Add(product);
+                }
+            }
+        }
+
+        int sum = 0;
+        foreach (int product in products)
+        {
+            sum += product;
+        }
+
+        Console.WriteLine("The sum of all products is: " + sum);
+    }
+
+    static bool IsPandigital(string number)
+    {
+        if (number.Length != 9)
+            return false;
+
+        for (int i = 1; i <= 9; i++)
+        {
+            if (!number.Contains(i.ToString()))
+                return false;
+        }
+
+        return true;
+    }
+}

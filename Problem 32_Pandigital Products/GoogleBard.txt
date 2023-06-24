@@ -1,0 +1,53 @@
+using System;
+
+namespace PandigitalProductSum
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Initialize the sum of all pandigital products.
+            int sum = 0;
+
+            // Iterate over all possible values of the multiplicand.
+            for (int i = 1; i <= 9; i++)
+            {
+                // Iterate over all possible values of the multiplier.
+                for (int j = 1; j <= 9; j++)
+                {
+                    // Calculate the product.
+                    int product = i * j;
+
+                    // Check if the product, multiplicand, and multiplier form a pandigital number.
+                    if (IsPandigital(i, j, product))
+                    {
+                        // Add the product to the sum.
+                        sum += product;
+                    }
+                }
+            }
+
+            // Print the sum of all pandigital products.
+            Console.WriteLine(sum);
+        }
+
+        private static bool IsPandigital(int i, int j, int product)
+        {
+            // Create a string from the multiplicand, multiplier, and product.
+            string pandigital = i.ToString() + j.ToString() + product.ToString();
+
+            // Check if the string contains all the digits from 1 to 9.
+            if (pandigital.Length != 9)
+            {
+                return false;
+            }
+
+            // Sort the characters in the string.
+            char[] chars = pandigital.ToCharArray();
+            Array.Sort(chars);
+
+            // Check if the sorted string is "123456789".
+            return new string(chars) == "123456789";
+        }
+    }
+}

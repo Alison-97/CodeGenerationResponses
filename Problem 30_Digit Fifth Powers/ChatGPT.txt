@@ -1,0 +1,35 @@
+using System;
+
+public class SumOfDigitPowers
+{
+    public static void Main()
+    {
+        int power = 5; // power of the digits
+        int maxNumber = (int)Math.Pow(9, power) * power; // maximum possible number
+
+        int sum = 0;
+        for (int i = 2; i <= maxNumber; i++)
+        {
+            if (IsSumOfDigitPowers(i, power))
+                sum += i;
+        }
+
+        Console.WriteLine("The sum of all numbers that can be written as the sum of fifth powers of their digits is: " + sum);
+    }
+
+    // Check if a number can be written as the sum of the specified power of its digits
+    public static bool IsSumOfDigitPowers(int number, int power)
+    {
+        int sum = 0;
+        int temp = number;
+
+        while (temp > 0)
+        {
+            int digit = temp % 10;
+            sum += (int)Math.Pow(digit, power);
+            temp /= 10;
+        }
+
+        return (sum == number);
+    }
+}
