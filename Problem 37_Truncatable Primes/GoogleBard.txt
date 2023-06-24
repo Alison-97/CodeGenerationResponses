@@ -1,0 +1,82 @@
+using System;
+
+public class Program
+{
+    public static void Main()
+    {
+        // Create a list to store the truncatable primes
+        List<long> truncatablePrimes = new List<long>();
+
+        // Loop through all the numbers from 10 to 1000000
+        for (long i = 10; i <= 1000000; i++)
+        {
+            // Check if the number is prime
+            if (IsPrime(i))
+            {
+                // Check if the number is truncatable from left to right
+                bool isTruncatableFromLeft = true;
+                long currentNumber = i;
+                while (currentNumber > 0)
+                {
+                    if (!IsPrime(currentNumber))
+                    {
+                        isTruncatableFromLeft = false;
+                        break;
+                    }
+                    currentNumber /= 10;
+                }
+
+                // Check if the number is truncatable from right to left
+                bool isTruncatableFromRight = true;
+                currentNumber = i;
+                while (currentNumber > 0)
+                {
+                    long digit = currentNumber % 10;
+                    currentNumber /= 10;
+                    if (!IsPrime(digit))
+                    {
+                        isTruncatableFromRight = false;
+                        break;
+                    }
+                }
+
+                // If the number is truncatable from left to right and right to left, add it to the list
+                if (isTruncatableFromLeft && isTruncatableFromRight)
+                {
+                    truncatablePrimes.Add(i);
+                }
+            }
+        }
+
+        // Calculate the sum of the truncatable primes
+        long sum = 0;
+        foreach (long prime in truncatablePrimes)
+        {
+            sum += prime;
+        }
+
+        // Print the sum
+        Console.WriteLine("The sum of the truncatable primes is: " + sum);
+    }
+
+    public static bool IsPrime(long number)
+    {
+        // Check if the number is divisible by 2
+        if (number % 2 == 0)
+        {
+            return false;
+        }
+
+        // Check if the number is divisible by any other prime number
+        for (long i = 3; i <= Math.Sqrt(number); i += 2)
+        {
+            if (number % i == 0)
+            {
+                return false;
+            }
+        }
+
+        // The number is prime
+        return true;
+    }
+}

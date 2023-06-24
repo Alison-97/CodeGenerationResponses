@@ -1,0 +1,97 @@
+using System;
+
+public class Program
+{
+    public static void Main()
+    {
+        // Create a list to store the curious fractions
+        List<Fraction> fractions = new List<Fraction>();
+
+        // Find the four non-trivial curious fractions
+        for (int i = 10; i < 100; i++)
+        {
+            for (int j = i + 1; j < 100; j++)
+            {
+                if (i != j && IsCuriousFraction(i, j))
+                {
+                    fractions.Add(new Fraction(i, j));
+                }
+            }
+        }
+
+        // Calculate the product of the fractions
+        float product = 1;
+        foreach (Fraction fraction in fractions)
+        {
+            product *= fraction.Value;
+        }
+
+        // Find the lowest common denominator
+        int denominator = fractions[0].Denominator;
+        foreach (Fraction fraction in fractions)
+        {
+            denominator = Math.Lcm(denominator, fraction.Denominator);
+        }
+
+        // Print the value of the denominator
+        Console.WriteLine("The value of the denominator is: " + denominator);
+    }
+
+    public static bool IsCuriousFraction(int numerator, int denominator)
+    {
+        // Check if the fraction is less than one
+        if (numerator > denominator)
+        {
+            return false;
+        }
+
+        // Check if the numerator and denominator have two digits
+        if (numerator < 10 || denominator < 10)
+        {
+            return false;
+        }
+
+        // Check if the fraction is not trivial
+        if (numerator % 10 == 0 || denominator % 10 == 0)
+        {
+            return false;
+        }
+
+        // Check if the fraction can be simplified by cancelling the digits
+        int commonFactor = numerator % 10;
+        if (denominator % commonFactor == 0)
+        {
+            numerator /= commonFactor;
+            denominator /= commonFactor;
+        }
+
+        // Check if the fraction cannot be simplified any further
+        for (int i = 2; i <= Math.Sqrt(numerator); i++)
+        {
+            if (numerator % i == 0 && denominator % i == 0)
+            {
+                return false;
+            }
+        }
+
+        // The fraction is curious
+        return true;
+    }
+}
+
+class Fraction
+{
+    public int Numerator { get; set; }
+    public int Denominator { get; set; }
+
+    public Fraction(int numerator, int denominator)
+    {
+        this.Numerator = numerator;
+        this.Denominator = denominator;
+    }
+
+    public float Value
+    {
+        get { return (float)Numerator / Denominator; }
+    }
+}

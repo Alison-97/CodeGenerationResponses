@@ -1,0 +1,36 @@
+using System;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] factorials = new int[10];
+            factorials[0] = 1;
+            for (int i = 1; i < 10; i++)
+            {
+                factorials[i] = factorials[i - 1] * i;
+            }
+
+            int sum = 0;
+            for (int i = 10; i < 1000000; i++)
+            {
+                int number = i;
+                int digitFactorialSum = 0;
+                while (number > 0)
+                {
+                    digitFactorialSum += factorials[number % 10];
+                    number /= 10;
+                }
+
+                if (digitFactorialSum == i)
+                {
+                    sum += i;
+                }
+            }
+
+            Console.WriteLine(sum);
+        }
+    }
+}

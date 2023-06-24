@@ -1,0 +1,61 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int count = 0;
+            int sum = 0;
+            int n = 11;
+            while (count < 11)
+            {
+                if (IsTruncatablePrime(n))
+                {
+                    count++;
+                    sum += n;
+                }
+                n += 2;
+            }
+            Console.WriteLine(sum);
+        }
+
+        static bool IsTruncatablePrime(int n)
+        {
+            if (!IsPrime(n))
+            {
+                return false;
+            }
+
+            string s = n.ToString();
+            for (int i = 1; i < s.Length; i++)
+            {
+                if (!IsPrime(int.Parse(s.Substring(i))) || !IsPrime(int.Parse(s.Substring(0, s.Length - i))))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        static bool IsPrime(int n)
+        {
+            if (n < 2)
+            {
+                return false;
+            }
+            for (int i = 2; i <= Math.Sqrt(n); i++)
+            {
+                if (n % i == 0)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+    }
+}

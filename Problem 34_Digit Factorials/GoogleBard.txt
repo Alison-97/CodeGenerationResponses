@@ -1,0 +1,45 @@
+using System;
+
+public class Program
+{
+    public static void Main()
+    {
+        // Create an array to store the factorial of digits.
+        int[] factorials = new int[10];
+        for (int i = 0; i < 10; i++)
+        {
+            factorials[i] = (int)Math.Factorial(i);
+        }
+
+        // Initialize the sum.
+        int sum = 0;
+
+        // Iterate through all the numbers from 3 to 999999.
+        for (int i = 3; i <= 999999; i++)
+        {
+            // Check if the number can be written as the sum of factorial of its digits.
+            bool isCuriousNumber = true;
+            int currentSum = 0;
+            while (i > 0)
+            {
+                int digit = i % 10;
+                if (factorials[digit] == 0)
+                {
+                    isCuriousNumber = false;
+                    break;
+                }
+                currentSum += factorials[digit];
+                i /= 10;
+            }
+
+            // If the number can be written as the sum of factorial of its digits, add it to the sum.
+            if (isCuriousNumber)
+            {
+                sum += i;
+            }
+        }
+
+        // Print the sum.
+        Console.WriteLine("The sum is: " + sum);
+    }
+}

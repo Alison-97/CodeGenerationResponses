@@ -1,0 +1,44 @@
+using System;
+
+public class Program
+{
+    public static bool IsPalindrome(string s)
+    {
+        int left = 0;
+        int right = s.Length - 1;
+
+        while (left < right)
+        {
+            if (s[left] != s[right])
+                return false;
+
+            left++;
+            right--;
+        }
+
+        return true;
+    }
+
+    public static bool IsBinaryPalindrome(int n)
+    {
+        string binary = Convert.ToString(n, 2);
+        return IsPalindrome(binary);
+    }
+
+    public static void Main()
+    {
+        int limit = 1000000;
+        long sum = 0;
+
+        for (int i = 1; i < limit; i++)
+        {
+            string number = i.ToString();
+            if (IsPalindrome(number) && IsBinaryPalindrome(i))
+            {
+                sum += i;
+            }
+        }
+
+        Console.WriteLine("Sum: " + sum);
+    }
+}

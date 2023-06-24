@@ -1,0 +1,50 @@
+using System;
+
+public class Program {
+
+    public static void Main() {
+
+        // Initialize the sum to 0
+        int sum = 0;
+
+        // Iterate over all the numbers from 1 to 1000000
+        for (int i = 1; i <= 1000000; i++) {
+
+            // Check if the number is a palindrome in both base 10 and base 2
+            if (IsPalindrome(i) && IsPalindrome(i, 2)) {
+
+                // Add the number to the sum
+                sum += i;
+            }
+        }
+
+        // Print the sum
+        Console.WriteLine(sum);
+    }
+
+    public static bool IsPalindrome(int number) {
+
+        // Reverse the number
+        int reversedNumber = 0;
+        while (number > 0) {
+            reversedNumber *= 10;
+            reversedNumber += number % 10;
+            number /= 10;
+        }
+
+        // Return true if the number is equal to its reverse
+        return number == reversedNumber;
+    }
+
+    public static bool IsPalindrome(int number, int base) {
+
+        // Convert the number to a string in base 2
+        string binaryNumber = number.ToString(base);
+
+        // Reverse the string
+        string reversedBinaryNumber = binaryNumber.Reverse();
+
+        // Return true if the string is equal to its reverse
+        return binaryNumber == reversedBinaryNumber;
+    }
+}

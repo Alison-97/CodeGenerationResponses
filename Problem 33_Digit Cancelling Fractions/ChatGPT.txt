@@ -1,0 +1,73 @@
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int numeratorProduct = 1;
+        int denominatorProduct = 1;
+
+        for (int numerator = 10; numerator < 100; numerator++)
+        {
+            for (int denominator = numerator + 1; denominator < 100; denominator++)
+            {
+                if (IsCuriousFraction(numerator, denominator))
+                {
+                    numeratorProduct *= numerator;
+                    denominatorProduct *= denominator;
+                }
+            }
+        }
+
+        int gcd = CalculateGCD(numeratorProduct, denominatorProduct);
+        int simplifiedDenominator = denominatorProduct / gcd;
+
+        Console.WriteLine("The value of the denominator in its lowest common terms is: " + simplifiedDenominator);
+    }
+
+    static bool IsCuriousFraction(int numerator, int denominator)
+    {
+        int commonDigit = GetCommonDigit(numerator, denominator);
+
+        if (commonDigit == -1)
+            return false;
+
+        int simplifiedNumerator = GetSimplifiedValue(numerator, commonDigit);
+        int simplifiedDenominator = GetSimplifiedValue(denominator, commonDigit);
+
+        return numerator * simplifiedDenominator == denominator * simplifiedNumerator;
+    }
+
+    static int GetCommonDigit(int number1, int number2)
+    {
+        string str1 = number1.ToString();
+        string str2 = number2.ToString();
+
+        foreach (char digit in str1)
+        {
+            if (digit != '0' && str2.Contains(digit))
+                return digit - '0';
+        }
+
+        return -1;
+    }
+
+    static int GetSimplifiedValue(int number, int digitToRemove)
+    {
+        string str = number.ToString();
+        str = str.Remove(str.IndexOf(digitToRemove.ToString()), 1);
+        return int.Parse(str);
+    }
+
+    static int CalculateGCD(int a, int b)
+    {
+        while (b != 0)
+        {
+            int remainder = a % b;
+            a = b;
+            b = remainder;
+        }
+
+        return a;
+    }
+}

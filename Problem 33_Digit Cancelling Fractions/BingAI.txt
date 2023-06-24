@@ -1,0 +1,37 @@
+using System;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int numeratorProduct = 1;
+            int denominatorProduct = 1;
+            for (int numerator = 10; numerator < 100; numerator++)
+            {
+                for (int denominator = numerator + 1; denominator < 100; denominator++)
+                {
+                    if (numerator % 10 == denominator / 10 && numerator / 10.0 / denominator == (numerator % 10) / (denominator % 10.0))
+                    {
+                        numeratorProduct *= numerator;
+                        denominatorProduct *= denominator;
+                    }
+                }
+            }
+            Console.WriteLine(denominatorProduct / gcd(numeratorProduct, denominatorProduct));
+        }
+
+        static int gcd(int a, int b)
+        {
+            if (b == 0)
+            {
+                return a;
+            }
+            else
+            {
+                return gcd(b, a % b);
+            }
+        }
+    }
+}

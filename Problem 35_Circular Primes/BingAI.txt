@@ -1,0 +1,76 @@
+using System;
+using System.Collections.Generic;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int limit = 1000000;
+            List<int> primes = new List<int>();
+            bool[] isPrime = new bool[limit];
+            for (int i = 2; i < limit; i++)
+            {
+                isPrime[i] = true;
+            }
+
+            for (int i = 2; i < limit; i++)
+            {
+                if (isPrime[i])
+                {
+                    primes.Add(i);
+                    for (int j = i * 2; j < limit; j += i)
+                    {
+                        isPrime[j] = false;
+                    }
+                }
+            }
+
+            int count = 0;
+            foreach (int prime in primes)
+            {
+                if (IsCircularPrime(prime))
+                {
+                    count++;
+                }
+            }
+
+            Console.WriteLine(count);
+        }
+
+        static bool IsCircularPrime(int n)
+        {
+            string s = n.ToString();
+            for (int i = 0; i < s.Length; i++)
+            {
+                string rotatedString = s.Substring(i) + s.Substring(0, i);
+                int rotatedNumber = int.Parse(rotatedString);
+                if (!IsPrime(rotatedNumber))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        static bool IsPrime(int n)
+        {
+            if (n < 2)
+            {
+                return false;
+            }
+
+            for (int i = 2; i <= Math.Sqrt(n); i++)
+            {
+                if (n % i == 0)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+    }
+}

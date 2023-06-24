@@ -1,0 +1,100 @@
+using System;
+
+public class CircularPrimes
+{
+    public static void Main()
+    {
+        // Create a list of all primes below one million
+        var primes = GetPrimes(1000000);
+
+        // Initialize the count of circular primes
+        int count = 0;
+
+        // Iterate over all primes
+        foreach (var prime in primes)
+        {
+            // Check if all rotations of the prime are prime
+            bool isCircularPrime = true;
+            for (int i = 0; i < prime.Length; i++)
+            {
+                var rotatedPrime = Rotate(prime, i);
+                if (!IsPrime(rotatedPrime))
+                {
+                    isCircularPrime = false;
+                    break;
+                }
+            }
+
+            // If all rotations of the prime are prime, increment the count
+            if (isCircularPrime)
+            {
+                count++;
+            }
+        }
+
+        // Print the number of circular primes
+        Console.WriteLine("There are {0} circular primes below one million.", count);
+    }
+
+    private static bool IsPrime(int number)
+    {
+        // Check if the number is divisible by any number between 2 and itself
+        for (int i = 2; i <= Math.Sqrt(number); i++)
+        {
+            if (number % i == 0)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private static string Rotate(string number, int index)
+    {
+        // Get the digit at the specified index
+        var digit = number[index];
+
+        // Remove the digit at the specified index
+        number = number.Remove(index, 1);
+
+        // Append the digit to the end of the number
+        number = digit + number;
+
+        return number;
+    }
+
+    private static List<int> GetPrimes(int limit)
+    {
+        // Create a list to store the primes
+        var primes = new List<int>();
+
+        // Initialize all numbers as prime
+        bool[] isPrime = new bool[limit + 1];
+        Array.Fill(isPrime, true);
+
+        // Mark all multiples of 2 as non-prime
+        for (int i = 4; i <= limit; i += 2)
+        {
+            isPrime[i] = false;
+        }
+
+        // Iterate over all odd numbers
+        for (int i = 3; i <= limit; i += 2)
+        {
+            // If the number is prime, add it to the list of primes
+            if (isPrime[i])
+            {
+                primes.Add(i);
+
+                // Mark all multiples of the number as non-prime
+                for (int j = i * i; j <= limit; j += 2 * i)
+                {
+                    isPrime[j] = false;
+                }
+            }
+        }
+
+        return primes;
+    }
+}
