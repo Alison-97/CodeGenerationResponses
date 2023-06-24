@@ -1,0 +1,36 @@
+using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Calculate 100!
+        BigInteger factorial = Factorial(100);
+
+        // Calculate the sum of the digits in the factorial
+        int sumOfDigits = SumOfDigits(factorial);
+
+        Console.WriteLine("Sum of digits in 100!: " + sumOfDigits);
+    }
+
+    static BigInteger Factorial(int n)
+    {
+        BigInteger result = 1;
+        for (int i = 1; i <= n; i++)
+        {
+            result *= i;
+        }
+        return result;
+    }
+
+    static int SumOfDigits(BigInteger number)
+    {
+        int sum = 0;
+        while (number != 0)
+        {
+            sum += (int)(number % 10);
+            number /= 10;
+        }
+        return sum;
+    }
+}

@@ -1,0 +1,22 @@
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int count = 0;
+        DateTime currentDate = new DateTime(1901, 1, 1);
+
+        while (currentDate <= new DateTime(2000, 12, 31))
+        {
+            if (currentDate.DayOfWeek == DayOfWeek.Sunday && currentDate.Day == 1)
+            {
+                count++;
+            }
+
+            currentDate = currentDate.AddMonths(1);
+        }
+
+        Console.WriteLine("Number of Sundays falling on the first of the month: " + count);
+    }
+}

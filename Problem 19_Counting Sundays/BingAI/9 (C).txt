@@ -1,0 +1,31 @@
+using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Initialize the count of Sundays
+        int count = 0;
+
+        // Loop through the years from 1901 to 2000
+        for (int year = 1901; year <= 2000; year++)
+        {
+            // Loop through the months from 1 to 12
+            for (int month = 1; month <= 12; month++)
+            {
+                // Create a DateTime object for the first day of the month
+                DateTime date = new DateTime(year, month, 1);
+
+                // Check if the day of the week is Sunday
+                if (date.DayOfWeek == DayOfWeek.Sunday)
+                {
+                    // Increment the count
+                    count++;
+                }
+            }
+        }
+
+        // Print the result
+        Console.WriteLine("There were {0} Sundays that fell on the first of the month during the twentieth century.", count);
+    }
+}

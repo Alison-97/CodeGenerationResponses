@@ -1,0 +1,78 @@
+using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Initialize the variables
+        int sundays = 0; // The number of Sundays on the first of the month
+        int day = 1; // The current day of the week (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
+        int month = 1; // The current month (1 = January, 2 = February, ..., 12 = December)
+        int year = 1900; // The current year
+
+        // Loop through the years from 1900 to 2000
+        while (year <= 2000)
+        {
+            // Loop through the months from 1 to 12
+            while (month <= 12)
+            {
+                // Check if the first day of the month is a Sunday
+                if (day == 0)
+                {
+                    // If the year is not 1900, increment the sundays counter
+                    if (year != 1900)
+                    {
+                        sundays++;
+                    }
+                }
+
+                // Increment the day by the number of days in the current month
+                day += DaysInMonth(month, year);
+
+                // Modulo the day by 7 to get the day of the week
+                day %= 7;
+
+                // Increment the month
+                month++;
+            }
+
+            // Reset the month to 1
+            month = 1;
+
+            // Increment the year
+            year++;
+        }
+
+        // Print the result
+        Console.WriteLine("The number of Sundays on the first of the month during the twentieth century is {0}.", sundays);
+    }
+
+    // A helper method to return the number of days in a given month and year
+    static int DaysInMonth(int month, int year)
+    {
+        // If the month is September, April, June or November, return 30
+        if (month == 9 || month == 4 || month == 6 || month == 11)
+        {
+            return 30;
+        }
+        // If the month is February, check if it is a leap year
+        else if (month == 2)
+        {
+            // If the year is divisible by 4, but not by 100, or if it is divisible by 400, return 29
+            if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0)
+            {
+                return 29;
+            }
+            // Otherwise, return 28
+            else
+            {
+                return 28;
+            }
+        }
+        // Otherwise, return 31
+        else
+        {
+            return 31;
+        }
+    }
+}

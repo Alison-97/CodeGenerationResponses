@@ -1,0 +1,72 @@
+using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Initialize the variables
+        int year = 1901; // Start from 1901
+        int month = 1; // Start from January
+        int day = 1; // Start from the first day of the month
+        int weekday = 2; // Start from Tuesday (Monday is 1, Sunday is 7)
+        int count = 0; // Count the number of Sundays on the first of the month
+
+        // Loop through the years until 2000
+        while (year <= 2000)
+        {
+            // Loop through the months until December
+            while (month <= 12)
+            {
+                // Check if the first day of the month is Sunday
+                if (weekday == 7)
+                {
+                    // Increment the count
+                    count++;
+                }
+
+                // Calculate the next first day of the month
+                day = 1;
+                month++;
+                weekday = (weekday + GetDaysInMonth(year, month)) % 7;
+                if (weekday == 0) weekday = 7; // Adjust for modulo operation
+            }
+
+            // Reset the month and increment the year
+            month = 1;
+            year++;
+        }
+
+        // Print the result
+        Console.WriteLine("The number of Sundays on the first of the month in the twentieth century is {0}", count);
+    }
+
+    // A helper function to get the number of days in a given month and year
+    static int GetDaysInMonth(int year, int month)
+    {
+        switch (month)
+        {
+            case 2: // February
+                if (IsLeapYear(year)) return 29; // Leap year
+                else return 28; // Non-leap year
+            case 4: case 6: case 9: case 11: // April, June, September, November
+                return 30;
+            default: // January, March, May, July, August, October, December
+                return 31;
+        }
+    }
+
+    // A helper function to check if a given year is a leap year
+    static bool IsLeapYear(int year)
+    {
+        if (year % 4 == 0) // Divisible by 4
+        {
+            if (year % 100 == 0) // Divisible by 100
+            {
+                if (year % 400 == 0) return true; // Divisible by 400
+                else return false; // Not divisible by 400
+            }
+            else return true; // Not divisible by 100
+        }
+        else return false; // Not divisible by 4
+    }
+}

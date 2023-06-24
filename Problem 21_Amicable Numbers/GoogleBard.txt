@@ -1,0 +1,52 @@
+using System;
+
+public class AmicableNumbers
+{
+    public static void Main()
+    {
+        // Create a list to store the amicable numbers
+        List<int> amicableNumbers = new List<int>();
+
+        // Loop through the numbers from 1 to 10000
+        for (int i = 1; i <= 10000; i++)
+        {
+            // Get the sum of the proper divisors of i
+            int sumOfProperDivisors = GetSumOfProperDivisors(i);
+
+            // If the sum of the proper divisors of i is equal to i, then i is an amicable number
+            if (sumOfProperDivisors == i)
+            {
+                amicableNumbers.Add(i);
+            }
+        }
+
+        // Calculate the sum of the amicable numbers
+        int sumOfAmicableNumbers = 0;
+        foreach (int amicableNumber in amicableNumbers)
+        {
+            sumOfAmicableNumbers += amicableNumber;
+        }
+
+        // Print the sum of the amicable numbers
+        Console.WriteLine("The sum of all the amicable numbers under 10000 is: " + sumOfAmicableNumbers);
+    }
+
+    private static int GetSumOfProperDivisors(int number)
+    {
+        // Initialize the sum of the proper divisors
+        int sumOfProperDivisors = 0;
+
+        // Loop through the numbers from 1 to number
+        for (int i = 1; i < number; i++)
+        {
+            // If number is divisible by i, then add i to the sum of the proper divisors
+            if (number % i == 0)
+            {
+                sumOfProperDivisors += i;
+            }
+        }
+
+        // Return the sum of the proper divisors
+        return sumOfProperDivisors;
+    }
+}

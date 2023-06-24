@@ -1,0 +1,33 @@
+using System;
+using System.Collections.Generic;
+
+public class Program
+{
+    public static void Main()
+    {
+        int sum = 0;
+        for (int i = 1; i < 10000; i++)
+        {
+            int a = SumOfProperDivisors(i);
+            int b = SumOfProperDivisors(a);
+            if (i == b && i != a)
+            {
+                sum += i;
+            }
+        }
+        Console.WriteLine(sum);
+    }
+
+    public static int SumOfProperDivisors(int n)
+    {
+        int sum = 0;
+        for (int i = 1; i <= n / 2; i++)
+        {
+            if (n % i == 0)
+            {
+                sum += i;
+            }
+        }
+        return sum;
+    }
+}

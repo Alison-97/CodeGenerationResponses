@@ -1,0 +1,86 @@
+using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Initialize the variables
+        int year = 1901; // Start from 1901
+        int month = 1; // Start from January
+        int day = 1; // Start from the first day of the month
+        int weekday = 2; // Start from Tuesday (Monday is 1, Sunday is 7)
+        int count = 0; // Count the number of Sundays on the first of the month
+
+        // Loop until the end of the century
+        while (year <= 2000)
+        {
+            // Check if the first day of the month is Sunday
+            if (weekday == 7)
+            {
+                count++;
+            }
+
+            // Increment the day and weekday by one
+            day++;
+            weekday++;
+
+            // Check if the month has ended
+            if (day > DaysInMonth(month, year))
+            {
+                // Reset the day to one and increment the month by one
+                day = 1;
+                month++;
+
+                // Check if the year has ended
+                if (month > 12)
+                {
+                    // Reset the month to one and increment the year by one
+                    month = 1;
+                    year++;
+                }
+            }
+
+            // Wrap around the weekday if it exceeds seven
+            if (weekday > 7)
+            {
+                weekday = 1;
+            }
+        }
+
+        // Print the result
+        Console.WriteLine("The number of Sundays that fell on the first of the month during the twentieth century is {0}.", count);
+    }
+
+    // A helper method that returns the number of days in a given month and year
+    static int DaysInMonth(int month, int year)
+    {
+        // Use a switch statement to handle different cases
+        switch (month)
+        {
+            case 2: // February
+                // Check if it is a leap year
+                if (IsLeapYear(year))
+                {
+                    return 29;
+                }
+                else
+                {
+                    return 28;
+                }
+            case 4: // April
+            case 6: // June
+            case 9: // September
+            case 11: // November
+                return 30;
+            default: // All other months have 31 days
+                return 31;
+        }
+    }
+
+    // A helper method that returns true if a given year is a leap year, false otherwise
+    static bool IsLeapYear(int year)
+    {
+        // A leap year occurs on any year evenly divisible by 4, but not on a century unless it is divisible by 400.
+        return (year % 4 == 0) && ((year % 100 != 0) || (year % 400 == 0));
+    }
+}

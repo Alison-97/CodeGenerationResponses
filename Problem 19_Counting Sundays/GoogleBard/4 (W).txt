@@ -1,0 +1,42 @@
+using System;
+
+public class Solution {
+
+    public static int CountSundays() {
+        int numberOfSundays = 0;
+        int currentYear = 1901;
+        int currentMonth = 0;
+        int currentDay = 1; // 1 Jan 1901 was a Monday
+
+        while (currentYear <= 2000) {
+            if (currentDay == 1) {
+                numberOfSundays++;
+            }
+
+            // Increment the day of the week
+            currentDay += 7;
+
+            // Check if we've reached the end of the month
+            int daysInMonth = 31;
+            if (currentMonth == 1) {
+                daysInMonth = (currentYear % 4 == 0) ? 29 : 28;
+            }
+            if (currentDay > daysInMonth) {
+                currentDay -= daysInMonth;
+                currentMonth++;
+
+                // Check if we've reached the end of the year
+                if (currentMonth == 12) {
+                    currentMonth = 0;
+                    currentYear++;
+                }
+            }
+        }
+
+        return numberOfSundays;
+    }
+
+    public static void Main(string[] args) {
+        Console.WriteLine("The number of Sundays that fell on the first of the month during the twentieth century is: {0}", CountSundays());
+    }
+}

@@ -1,0 +1,73 @@
+using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Initialize the variables
+        int sundays = 0; // The number of Sundays that fell on the first of the month
+        int day = 1; // The current day of the week (1 = Monday, 7 = Sunday)
+        int month = 1; // The current month (1 = January, 12 = December)
+        int year = 1900; // The current year
+
+        // Loop through the years from 1900 to 2000
+        while (year <= 2000)
+        {
+            // Loop through the months from 1 to 12
+            while (month <= 12)
+            {
+                // Check if the first day of the month is a Sunday and the year is not 1900
+                if (day == 7 && year != 1900)
+                {
+                    // Increment the number of Sundays
+                    sundays++;
+                }
+
+                // Increment the day of the week by the number of days in the month
+                day += DaysInMonth(month, year);
+
+                // If the day of the week exceeds 7, wrap it around
+                day %= 7;
+
+                // Increment the month
+                month++;
+            }
+
+            // Reset the month to 1
+            month = 1;
+
+            // Increment the year
+            year++;
+        }
+
+        // Print the result
+        Console.WriteLine("The number of Sundays that fell on the first of the month during the twentieth century is {0}.", sundays);
+    }
+
+    // A helper method that returns the number of days in a given month and year
+    static int DaysInMonth(int month, int year)
+    {
+        // If the month is September, April, June or November, return 30
+        if (month == 9 || month == 4 || month == 6 || month == 11)
+        {
+            return 30;
+        }
+
+        // If the month is February, check if it is a leap year or not
+        if (month == 2)
+        {
+            // If the year is divisible by 4, but not by 100, or if it is divisible by 400, return 29
+            if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0)
+            {
+                return 29;
+            }
+            else
+            {
+                return 28;
+            }
+        }
+
+        // For any other month, return 31
+        return 31;
+    }
+}

@@ -1,0 +1,22 @@
+using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        int sundaysOnFirst = 0;
+        DateTime currentDate = new DateTime(1901, 1, 1);
+
+        while (currentDate.Year <= 2000)
+        {
+            if (currentDate.DayOfWeek == DayOfWeek.Sunday && currentDate.Day == 1)
+            {
+                sundaysOnFirst++;
+            }
+
+            currentDate = currentDate.AddMonths(1);
+        }
+
+        Console.WriteLine("Number of Sundays that fell on the first of the month during the twentieth century: " + sundaysOnFirst);
+    }
+}

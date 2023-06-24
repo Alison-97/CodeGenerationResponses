@@ -1,0 +1,146 @@
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int totalLetters = 0;
+        for (int i = 1; i <= 1000; i++)
+        {
+            totalLetters += GetNumberLetterCount(i);
+        }
+
+        Console.WriteLine("Total number of letters used: " + totalLetters);
+    }
+
+    static int GetNumberLetterCount(int number)
+    {
+        if (number == 1000)
+        {
+            // "one thousand"
+            return 11;
+        }
+        else if (number >= 100)
+        {
+            int hundreds = number / 100;
+            int remaining = number % 100;
+
+            // Add letter count for hundreds place
+            int letterCount = GetLetterCountForDigit(hundreds) + 7; // e.g., "seven hundred"
+
+            if (remaining > 0)
+            {
+                // Add letter count for "and"
+                letterCount += 3;
+
+                // Add letter count for remaining two digits
+                letterCount += GetLetterCountForTwoDigitNumber(remaining);
+            }
+
+            return letterCount;
+        }
+        else if (number >= 20)
+        {
+            int tens = number / 10;
+            int ones = number % 10;
+
+            // Add letter count for tens place
+            int letterCount = GetLetterCountForTens(tens);
+
+            if (ones > 0)
+            {
+                // Add letter count for ones place
+                letterCount += GetLetterCountForDigit(ones);
+            }
+
+            return letterCount;
+        }
+        else
+        {
+            return GetLetterCountForDigit(number);
+        }
+    }
+
+    static int GetLetterCountForDigit(int digit)
+    {
+        switch (digit)
+        {
+            case 1: // one
+            case 2: // two
+            case 6: // six
+            case 10: // ten
+                return 3;
+            case 4: // four
+            case 5: // five
+            case 9: // nine
+                return 4;
+            case 3: // three
+            case 7: // seven
+            case 8: // eight
+                return 5;
+            case 11: // eleven
+            case 12: // twelve
+            case 20: // twenty
+            case 30: // thirty
+            case 80: // eighty
+            case 90: // ninety
+                return 6;
+            case 15: // fifteen
+            case 16: // sixteen
+                return 7;
+            case 13: // thirteen
+            case 14: // fourteen
+            case 18: // eighteen
+            case 19: // nineteen
+                return 8;
+            case 17: // seventeen
+                return 9;
+            default:
+                return 0;
+        }
+    }
+
+    static int GetLetterCountForTens(int tens)
+    {
+        switch (tens)
+        {
+            case 4: // forty
+            case 5: // fifty
+            case 6: // sixty
+                return 5;
+            case 2: // twenty
+            case 3: // thirty
+            case 8: // eighty
+            case 9: // ninety
+                return 6;
+            case 7: // seventy
+                return 7;
+            default:
+                return 0;
+        }
+    }
+
+    static int GetLetterCountForTwoDigitNumber(int number)
+    {
+        if (number >= 10 && number <= 19)
+        {
+            return GetLetterCountForDigit(number);
+        }
+        else
+        {
+            int tens = number / 10;
+            int ones = number % 10;
+
+            // Add letter count for tens place
+            int letterCount = GetLetterCountForTens(tens);
+
+            if (ones > 0)
+            {
+                // Add letter count for ones place
+                letterCount += GetLetterCountForDigit(ones);
+            }
+
+            return letterCount;
+        }
+    }
+}

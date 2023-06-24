@@ -1,0 +1,40 @@
+using System;
+
+public class ProjectEuler19
+{
+    static void Main(string[] args)
+    {
+        int numberOfSundays = 0;
+        int currentYear = 1901;
+        int currentMonth = 0;
+        int currentDay = 1; // 1 Jan 1901 was a Monday
+
+        while (currentYear < 2001)
+        {
+            currentDay += 7;
+
+            // Handle February
+            int daysInMonth = (currentMonth == 1) ? ((currentYear % 4 == 0) ? 29 : 28) : 31;
+            if (currentDay > daysInMonth)
+            {
+                currentDay -= daysInMonth;
+                currentMonth++;
+
+                // If we've reached December, then increment the year
+                if (currentMonth == 12)
+                {
+                    currentMonth = 0;
+                    currentYear++;
+                }
+            }
+
+            // If the current day is Sunday, then increment the number of Sundays
+            if (currentDay == 1)
+            {
+                numberOfSundays++;
+            }
+        }
+
+        Console.WriteLine("The number of Sundays that fell on the first of the month during the twentieth century is {0}.", numberOfSundays);
+    }
+}

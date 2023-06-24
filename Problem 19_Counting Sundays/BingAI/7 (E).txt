@@ -1,0 +1,1 @@
+That’s an interesting challenge. Here is my attempt to write a C# code that can solve it. I’m not sure if it’s the most efficient or elegant way, but it seems to work.

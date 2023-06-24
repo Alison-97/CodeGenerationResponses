@@ -1,0 +1,92 @@
+using System;
+
+public class NumberToLetters
+{
+    public static void Main()
+    {
+        // Create a dictionary to store the number of letters in each word
+        Dictionary<string, int> numberToLetters = new Dictionary<string, int>
+        {
+            { "one", 3 },
+            { "two", 3 },
+            { "three", 5 },
+            { "four", 4 },
+            { "five", 4 },
+            { "six", 3 },
+            { "seven", 5 },
+            { "eight", 5 },
+            { "nine", 4 },
+            { "ten", 3 },
+            { "eleven", 6 },
+            { "twelve", 6 },
+            { "thirteen", 8 },
+            { "fourteen", 8 },
+            { "fifteen", 7 },
+            { "sixteen", 7 },
+            { "seventeen", 9 },
+            { "eighteen", 9 },
+            { "nineteen", 8 },
+            { "twenty", 6 },
+            { "thirty", 6 },
+            { "forty", 5 },
+            { "fifty", 5 },
+            { "sixty", 5 },
+            { "seventy", 7 },
+            { "eighty", 6 },
+            { "ninety", 6 },
+            { "hundred", 7 },
+            { "thousand", 8 }
+        };
+
+        // Initialize the number of letters used
+        int totalLetters = 0;
+
+        // Loop through the numbers from 1 to 1000
+        for (int i = 1; i <= 1000; i++)
+        {
+            // Get the number of letters in the word representation of the number
+            int numLetters = numberToLetters[GetWordRepresentation(i)];
+
+            // Add the number of letters to the total
+            totalLetters += numLetters;
+        }
+
+        // Print the total number of letters
+        Console.WriteLine("The total number of letters is: " + totalLetters);
+    }
+
+    private static string GetWordRepresentation(int number)
+    {
+        // If the number is less than 20, return the corresponding word
+        if (number < 20)
+        {
+            return numberToLetters.Keys.ElementAt(number - 1);
+        }
+
+        // Otherwise, break the number down into its component parts
+        int hundreds = number / 100;
+        int tens = (number % 100) / 10;
+        int ones = number % 10;
+
+        // Build the word representation of the number
+        string wordRepresentation = "";
+
+        if (hundreds > 0)
+        {
+            wordRepresentation += "hundred ";
+        }
+
+        if (tens > 1 || (tens == 1 && ones > 0))
+        {
+            wordRepresentation += GetWordRepresentation(tens) + " ";
+        }
+
+        if (ones > 0)
+        {
+            wordRepresentation += GetWordRepresentation(ones);
+        }
+
+        // Return the word representation of the number
+        return wordRepresentation;
+    }
+}

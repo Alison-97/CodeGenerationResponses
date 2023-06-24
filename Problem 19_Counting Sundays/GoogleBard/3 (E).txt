@@ -1,0 +1,41 @@
+using System;
+
+public class Program
+{
+    static void Main(string[] args)
+    {
+        // Define an array with the number of days in each month.
+        int[] daysInEachMonth = new int[] { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+
+        // Initialize the current year and day.
+        int currentYear = 1901;
+        int currentDay = 1;
+
+        // Initialize the number of Sundays.
+        int numberOfSundays = 0;
+
+        // Iterate through the years from 1901 to 2000.
+        while (currentYear <= 2000)
+        {
+            // Check if the current day is a Sunday.
+            if (currentDay == 1)
+            {
+                numberOfSundays++;
+            }
+
+            // Increment the current day by 7.
+            currentDay += 7;
+
+            // If the current day is greater than the number of days in the current month,
+            // then roll over to the next month.
+            if (currentDay > daysInEachMonth[currentYear - 1900])
+            {
+                currentDay -= daysInEachMonth[currentYear - 1900];
+                currentYear++;
+            }
+        }
+
+        // Print the number of Sundays.
+        Console.WriteLine("The number of Sundays is: {0}", numberOfSundays);
+    }
+}
