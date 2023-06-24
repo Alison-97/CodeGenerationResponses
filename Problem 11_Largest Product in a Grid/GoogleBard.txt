@@ -1,0 +1,54 @@
+using System;
+
+namespace GreatestProduct
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Initialize the grid
+            int[,] grid = new int[20, 20];
+
+            // Fill the grid with numbers
+            for (int i = 0; i < 20; i++)
+            {
+                for (int j = 0; j < 20; j++)
+                {
+                    grid[i, j] = Convert.ToInt32(Console.ReadLine());
+                }
+            }
+
+            // Find the greatest product of four adjacent numbers
+            int maxProduct = 0;
+
+            for (int i = 0; i < 20; i++)
+            {
+                for (int j = 0; j < 20; j++)
+                {
+                    // Check for horizontal, vertical, and diagonal products
+                    int horizontalProduct = 1;
+                    int verticalProduct = 1;
+                    int diagonalProduct1 = 1;
+                    int diagonalProduct2 = 1;
+
+                    for (int k = 0; k < 4; k++)
+                    {
+                        horizontalProduct *= grid[i, j + k];
+                        verticalProduct *= grid[j + k, i];
+                        diagonalProduct1 *= grid[i + k, j + k];
+                        diagonalProduct2 *= grid[i + k, 20 - j - k];
+                    }
+
+                    maxProduct = Math.Max(maxProduct, horizontalProduct);
+                    maxProduct = Math.Max(maxProduct, verticalProduct);
+                    maxProduct = Math.Max(maxProduct, diagonalProduct1);
+                    maxProduct = Math.Max(maxProduct, diagonalProduct2);
+                }
+            }
+
+            // Print the greatest product
+            Console.WriteLine("The greatest product is: " + maxProduct);
+        }
+    }
+}
+ 

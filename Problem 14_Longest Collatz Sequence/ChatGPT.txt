@@ -1,0 +1,39 @@
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        long limit = 1000000;
+        long longestChainStart = 0;
+        long longestChainLength = 0;
+
+        for (long i = 1; i < limit; i++)
+        {
+            long currentNumber = i;
+            long chainLength = 1;
+
+            while (currentNumber != 1)
+            {
+                if (currentNumber % 2 == 0)
+                {
+                    currentNumber /= 2;
+                }
+                else
+                {
+                    currentNumber = (3 * currentNumber) + 1;
+                }
+                chainLength++;
+            }
+
+            if (chainLength > longestChainLength)
+            {
+                longestChainLength = chainLength;
+                longestChainStart = i;
+            }
+        }
+
+        Console.WriteLine("Starting number with the longest chain: " + longestChainStart);
+        Console.WriteLine("Length of the chain: " + longestChainLength);
+    }
+}

@@ -1,0 +1,28 @@
+using System;
+
+public class Program
+{
+    public static void Main()
+    {
+        int divisorCount = 0;
+        int triangleNumber = 0;
+        int naturalNumber = 1;
+
+        while (divisorCount <= 500)
+        {
+            divisorCount = 0;
+            triangleNumber += naturalNumber;
+            naturalNumber++;
+
+            for (int i = 1; i <= Math.Sqrt(triangleNumber); i++)
+            {
+                if (triangleNumber % i == 0)
+                {
+                    divisorCount += 2;
+                }
+            }
+        }
+
+        Console.WriteLine("The first triangle number with over 500 divisors is: " + triangleNumber);
+    }
+}

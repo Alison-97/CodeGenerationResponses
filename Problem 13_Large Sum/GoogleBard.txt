@@ -1,0 +1,27 @@
+using System;
+
+public class SumOfOneHundredNumbers
+{
+    public static void Main()
+    {
+        // Initialize the numbers.
+        long[] numbers = new long[100];
+        for (int i = 0; i < 100; i++)
+        {
+            numbers[i] = Convert.ToInt64(Console.ReadLine());
+        }
+
+        // Find the sum of the numbers.
+        long sum = 0;
+        for (int i = 0; i < 100; i++)
+        {
+            sum += numbers[i];
+        }
+
+        // Get the first ten digits of the sum.
+        string firstTenDigits = sum.ToString().Substring(0, 10);
+
+        // Display the first ten digits of the sum.
+        Console.WriteLine(firstTenDigits);
+    }
+}

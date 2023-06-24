@@ -1,0 +1,25 @@
+long n = 1;
+long triangleNumber = 1;
+
+while (true)
+{
+    n++;
+    triangleNumber += n;
+
+    // Find the number of divisors
+    int divisors = 0;
+    for (int i = 1; i <= Math.Sqrt(triangleNumber); i++)
+    {
+        if (triangleNumber % i == 0)
+        {
+            divisors += 2;
+        }
+    }
+
+    // If we have more than 500 divisors, we're done
+    if (divisors > 500)
+    {
+        Console.WriteLine(triangleNumber);
+        break;
+    }
+}

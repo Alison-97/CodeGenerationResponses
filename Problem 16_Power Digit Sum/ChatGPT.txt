@@ -1,0 +1,24 @@
+using System;
+using System.Numerics;
+
+class Program
+{
+    static void Main()
+    {
+        BigInteger powerResult = BigInteger.Pow(2, 1000);
+        int sum = CalculateDigitSum(powerResult);
+
+        Console.WriteLine("Sum of digits: " + sum);
+    }
+
+    static int CalculateDigitSum(BigInteger number)
+    {
+        int sum = 0;
+        while (number > 0)
+        {
+            sum += (int)(number % 10);
+            number /= 10;
+        }
+        return sum;
+    }
+}
